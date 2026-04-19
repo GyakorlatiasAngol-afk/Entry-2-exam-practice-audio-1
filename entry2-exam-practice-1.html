@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entry 2 Maths — Exam Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:#1a2035; --bg:#f5f0e8; --card:#fff;
+  --teal:#00897B; --teal2:#e0f2f1;
+  --amber:#f59e0b; --amber2:#fef3c7;
+  --red:#e53935; --red2:#ffebee;
+  --green:#2e7d32; --green2:#e8f5e9;
+  --blue:#1565C0; --blue2:#e3f2fd;
+  --shadow:0 4px 24px rgba(0,0,0,.10);
+  --shadow-lg:0 8px 40px rgba(0,0,0,.15);
+  --r:20px;
+  --fs-base: clamp(0.9rem, 2.2vw, 1.05rem);
+  --fs-lg:   clamp(1.1rem, 2.8vw, 1.3rem);
+  --fs-xl:   clamp(1.4rem, 3.5vw, 1.9rem);
+  --fs-num:  clamp(1.6rem, 5vw, 2.4rem);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;font-size:var(--fs-base);}
+
+/* TOP BAR */
+.topbar{background:var(--teal);padding:clamp(10px,2vw,14px) clamp(12px,3vw,20px);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 3px 14px rgba(0,137,123,.3);}
+.topbar-title{font-family:'Baloo 2',cursive;font-size:clamp(1rem,3vw,1.25rem);color:#fff;font-weight:800;}
+.topbar-btn{background:rgba(255,255,255,.2);border:none;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(.75rem,2vw,.9rem);padding:clamp(6px,1.5vw,8px) clamp(10px,2.5vw,16px);border-radius:50px;cursor:pointer;transition:background .18s;display:none;white-space:nowrap;}
+.topbar-btn:hover{background:rgba(255,255,255,.35);}
+.topbar-btn.show{display:block;}
+
+/* SCREENS */
+.screen{display:none;width:100%;max-width:700px;margin:0 auto;padding:clamp(12px,3vw,20px) clamp(12px,3vw,20px) clamp(32px,5vw,48px);}
+.screen.active{display:block;}
+
+/* HOME */
+.home-hero{text-align:center;padding:clamp(14px,3vw,24px) 8px clamp(10px,2vw,18px);}
+.home-hero h1{font-family:'Baloo 2',cursive;font-size:var(--fs-xl);color:var(--teal);margin-bottom:6px;}
+.home-hero p{font-size:clamp(.85rem,2vw,.98rem);color:#546e7a;font-weight:700;margin-bottom:16px;}
+
+/* Group headings */
+.group-label{font-family:'Baloo 2',cursive;font-size:clamp(.88rem,2.2vw,1rem);font-weight:800;color:#546e7a;letter-spacing:.3px;margin:clamp(14px,3vw,22px) 0 8px;padding-left:2px;display:flex;align-items:center;gap:10px;}
+.group-label::after{content:'';flex:1;height:2px;background:#e8edf0;border-radius:2px;}
+.section-num{background:var(--teal);color:#fff;font-family:'Baloo 2',cursive;font-size:.8rem;font-weight:900;width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+.section-num.purple{background:#7b1fa2;}
+.section-num.amber{background:var(--amber);color:#fff;}
+
+/* Card grid */
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(130px,30vw,200px),1fr));gap:clamp(8px,2vw,12px);}
+.topic-btn{background:var(--card);border:3px solid transparent;border-radius:16px;padding:clamp(10px,2.5vw,14px) clamp(8px,2vw,12px);cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:5px;box-shadow:var(--shadow);transition:all .2s;text-align:left;width:100%;min-height:0;}
+.topic-btn:hover,.topic-btn:focus{border-color:var(--teal);transform:translateY(-2px);box-shadow:var(--shadow-lg);outline:none;}
+.topic-btn.calc{border-left:4px solid var(--teal);}
+.topic-btn.noncalc{border-left:4px solid var(--amber);}
+.topic-icon{font-size:clamp(1.3rem,3.5vw,1.7rem);line-height:1;}
+.topic-name{font-family:'Baloo 2',cursive;font-size:clamp(.82rem,2.2vw,.98rem);font-weight:800;color:var(--ink);line-height:1.25;}
+.topic-desc{font-size:clamp(.65rem,1.6vw,.75rem);color:#78909c;font-weight:700;line-height:1.3;}
+.topic-footer{display:flex;align-items:center;gap:5px;margin-top:2px;flex-wrap:wrap;}
+.topic-count{background:var(--teal2);color:var(--teal);font-weight:900;font-size:clamp(.6rem,1.5vw,.72rem);padding:2px 8px;border-radius:50px;}
+.topic-tag{font-weight:900;font-size:clamp(.58rem,1.4vw,.67rem);padding:2px 7px;border-radius:50px;}
+.tag-calc{background:#e0f2f1;color:var(--teal);}
+.tag-nocalc{background:var(--amber2);color:#92400e;}
+
+/* Legend */
+.legend{display:flex;gap:clamp(8px,2vw,14px);justify-content:center;margin-bottom:12px;flex-wrap:wrap;}
+.legend-item{font-size:clamp(.7rem,1.8vw,.8rem);font-weight:800;color:#546e7a;display:flex;align-items:center;gap:5px;}
+.legend-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0;}
+
+/* QUIZ */
+.quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px;}
+.quiz-pill{background:var(--teal);color:#fff;font-weight:800;font-size:clamp(.72rem,2vw,.85rem);padding:5px 13px;border-radius:50px;max-width:65%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.quiz-counter{font-weight:800;color:#546e7a;font-size:clamp(.8rem,2vw,.9rem);white-space:nowrap;}
+.prog-bg{background:#dce8e6;border-radius:50px;height:10px;margin-bottom:clamp(12px,2vw,16px);overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--amber));border-radius:50px;transition:width .4s ease;}
+
+/* QUESTION CARD */
+.q-card{background:var(--card);border-radius:var(--r);padding:clamp(16px,3.5vw,24px) clamp(14px,3vw,20px) clamp(14px,3vw,20px);box-shadow:var(--shadow-lg);animation:slideUp .3s ease;}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.q-num{font-size:.72rem;font-weight:900;color:#aab;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:6px;}
+.q-ctx{background:var(--blue2);border-left:5px solid var(--blue);border-radius:0 12px 12px 0;padding:clamp(8px,2vw,12px) clamp(10px,2.5vw,14px);margin-bottom:clamp(10px,2vw,14px);font-size:clamp(.85rem,2.2vw,1rem);font-weight:700;color:#1a2f5a;line-height:1.55;}
+.q-text{font-size:var(--fs-lg);font-weight:900;color:var(--ink);line-height:1.4;margin-bottom:clamp(10px,2vw,14px);}
+
+/* LISTEN BUTTONS */
+.listen-bar{display:flex;align-items:center;gap:8px;margin-bottom:clamp(10px,2vw,14px);flex-wrap:wrap;}
+.btn-listen{background:var(--amber2);border:2px solid var(--amber);border-radius:50px;padding:clamp(7px,1.8vw,9px) clamp(14px,3vw,18px);font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(.82rem,2vw,.92rem);color:#92400e;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .18s;white-space:nowrap;}
+.btn-listen:hover{background:var(--amber);color:#fff;}
+.btn-listen.speaking{background:var(--amber);color:#fff;animation:pulse .8s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.7;}}
+.btn-listen-ctx{background:#e3f2fd;border:2px solid var(--blue);border-radius:50px;padding:clamp(6px,1.5vw,8px) clamp(10px,2.5vw,14px);font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(.75rem,1.9vw,.84rem);color:var(--blue);cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .18s;white-space:nowrap;}
+.btn-listen-ctx:hover{background:var(--blue);color:#fff;}
+.btn-listen-ctx.speaking{background:var(--blue);color:#fff;animation:pulse .8s infinite;}
+.voice-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.voice-label{font-size:.78rem;font-weight:800;color:#78909c;white-space:nowrap;}
+.voice-select{font-family:'Nunito',sans-serif;font-size:clamp(.72rem,1.8vw,.8rem);font-weight:700;color:var(--ink);background:#f4f7fe;border:2px solid #dde3f0;border-radius:10px;padding:5px 10px;cursor:pointer;flex:1;min-width:0;max-width:100%;}
+.voice-select:focus{outline:none;border-color:var(--teal);}
+.tts-note{font-size:.72rem;color:#90a4ae;font-weight:700;display:block;margin-bottom:4px;}
+
+/* VISUAL */
+.q-visual{background:#fafafa;border:2px solid #e8edf0;border-radius:16px;padding:clamp(10px,2.5vw,16px);margin-bottom:clamp(12px,2.5vw,18px);display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:10px;min-height:90px;overflow-x:auto;}
+.q-visual.hidden{display:none;}
+.q-visual svg,.q-visual table{max-width:100%;}
+
+/* OPTIONS */
+.options{display:grid;gap:clamp(7px,1.8vw,10px);}
+.options.two-col{grid-template-columns:1fr 1fr;}
+.opt{background:#f4f7fe;border:3px solid #dde3f0;border-radius:14px;padding:clamp(10px,2.5vw,14px) clamp(10px,2.5vw,16px);cursor:pointer;font-family:'Nunito',sans-serif;font-size:clamp(.88rem,2.2vw,1.05rem);font-weight:800;color:var(--ink);display:flex;align-items:center;gap:9px;transition:all .15s;text-align:left;line-height:1.35;}
+.opt:hover:not(:disabled){background:var(--teal2);border-color:var(--teal);transform:translateX(3px);}
+.opt-letter{width:28px;height:28px;min-width:28px;border-radius:50%;background:#dde3f0;color:#3949ab;font-weight:900;font-size:.78rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.opt.correct{background:var(--green2);border-color:var(--green);}
+.opt.correct .opt-letter{background:var(--green);color:#fff;}
+.opt.wrong{background:var(--red2);border-color:var(--red);}
+.opt.wrong .opt-letter{background:var(--red);color:#fff;}
+.opt:disabled{cursor:default;transform:none;}
+
+/* YES/NO */
+.yesno{display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,2.5vw,14px);}
+.yesno-btn{border:none;border-radius:18px;padding:clamp(16px,4vw,22px) clamp(10px,2.5vw,14px);font-family:'Baloo 2',cursive;font-size:clamp(1.2rem,3.5vw,1.55rem);font-weight:800;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.yesno-btn.yes{background:var(--green2);color:var(--green);border:3px solid var(--green);}
+.yesno-btn.no{background:var(--red2);color:var(--red);border:3px solid var(--red);}
+.yesno-btn:hover:not(:disabled){transform:scale(1.04);box-shadow:var(--shadow);}
+.yesno-btn:disabled{cursor:default;transform:none;opacity:.75;}
+.yesno-btn.sel-yes{background:var(--green);color:#fff;}
+.yesno-btn.sel-no{background:var(--red);color:#fff;}
+
+/* FEEDBACK */
+.feedback{margin-top:clamp(10px,2vw,14px);padding:clamp(10px,2.5vw,13px) clamp(12px,3vw,16px);border-radius:14px;font-weight:700;font-size:clamp(.85rem,2.2vw,.97rem);line-height:1.55;display:none;animation:fadeIn .3s;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.feedback.ok{background:var(--green2);border-left:5px solid var(--green);color:#1b5e20;}
+.feedback.fail{background:var(--red2);border-left:5px solid var(--red);color:#b71c1c;}
+
+/* ACTIONS */
+.q-actions{display:flex;gap:10px;margin-top:clamp(12px,2.5vw,16px);flex-wrap:wrap;}
+.btn-next{background:linear-gradient(135deg,var(--teal),#26a69a);color:#fff;font-family:'Baloo 2',cursive;font-size:clamp(.9rem,2.5vw,1rem);border:none;border-radius:50px;padding:clamp(10px,2.5vw,12px) clamp(20px,4vw,28px);cursor:pointer;display:none;box-shadow:0 4px 14px rgba(0,137,123,.33);transition:transform .18s;}
+.btn-next:hover{transform:scale(1.04);}
+.btn-back{background:#eceff1;color:#546e7a;font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(.8rem,2vw,.9rem);border:none;border-radius:50px;padding:clamp(10px,2.5vw,12px) clamp(14px,3vw,18px);cursor:pointer;transition:background .18s;}
+.btn-back:hover{background:#cfd8dc;}
+
+/* RESULTS */
+.result-wrap{display:flex;flex-direction:column;gap:clamp(12px,2.5vw,16px);padding-bottom:30px;}
+.res-card{background:var(--card);border-radius:var(--r);padding:clamp(18px,3.5vw,24px) clamp(14px,3vw,20px);box-shadow:var(--shadow);animation:slideUp .3s ease;}
+.res-top{display:flex;align-items:center;gap:clamp(12px,3vw,18px);margin-bottom:14px;}
+.res-emoji{font-size:clamp(2.2rem,6vw,3.2rem);line-height:1;flex-shrink:0;}
+.res-score{font-family:'Baloo 2',cursive;font-size:clamp(2rem,7vw,3rem);color:var(--teal);line-height:1;}
+.res-pct{font-weight:800;color:#78909c;font-size:clamp(.8rem,2vw,.92rem);margin-top:2px;}
+.res-bar-bg{background:#e0f2f1;border-radius:50px;height:14px;overflow:hidden;margin-bottom:10px;}
+.res-bar-fill{height:100%;border-radius:50px;transition:width 1s ease;background:linear-gradient(90deg,var(--teal),#26c6da);}
+.res-bar-fill.mid{background:linear-gradient(90deg,var(--amber),#ffd54f);}
+.res-bar-fill.low{background:linear-gradient(90deg,var(--red),#ef9a9a);}
+.res-msg{font-weight:700;font-size:clamp(.85rem,2.2vw,.97rem);color:#455a64;}
+.res-sec-title{font-family:'Baloo 2',cursive;font-size:clamp(.95rem,2.5vw,1.12rem);color:var(--ink);margin-bottom:10px;}
+.weak-item{border-radius:12px;padding:clamp(10px,2.5vw,13px) clamp(10px,2.5vw,14px);margin-bottom:8px;border-left:5px solid;}
+.weak-item.red{background:#fff3f3;border-color:var(--red);}
+.weak-item.amber{background:#fff8e1;border-color:var(--amber);}
+.weak-label{font-weight:900;font-size:clamp(.8rem,2vw,.92rem);margin-bottom:4px;}
+.str-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:10px;background:var(--green2);margin-bottom:5px;font-size:clamp(.78rem,2vw,.87rem);font-weight:700;color:#1b5e20;}
+.breakdown{max-height:260px;overflow-y:auto;margin-top:8px;}
+.bd-item{display:flex;align-items:flex-start;gap:6px;padding:6px 8px;border-radius:8px;margin-bottom:3px;font-size:clamp(.72rem,1.8vw,.82rem);font-weight:700;}
+.bd-item.ok{background:var(--green2);color:#2e7d32;}
+.bd-item.fail{background:var(--red2);color:#c62828;}
+.res-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px;}
+.res-btn{font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(.85rem,2.2vw,.97rem);border:none;border-radius:50px;padding:clamp(10px,2.5vw,12px) clamp(20px,4vw,28px);cursor:pointer;transition:transform .18s;}
+.res-btn.retry{background:linear-gradient(135deg,var(--teal),#26a69a);color:#fff;box-shadow:0 4px 14px rgba(0,137,123,.28);}
+.res-btn.home{background:#eceff1;color:#455a64;}
+.res-btn:hover{transform:scale(1.04);}
+
+/* COIN */
+.coin{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-weight:900;border:3px solid;font-size:clamp(.65rem,1.7vw,.78rem);}
+.coin-gold{background:#fef9c3;color:#92400e;border-color:#f59e0b;}
+.coin-silver{background:#f1f5f9;color:#475569;border-color:#94a3b8;}
+
+/* TABLES */
+.price-table{border-collapse:collapse;width:100%;font-size:clamp(.75rem,1.9vw,.92rem);font-weight:700;}
+.price-table td,.price-table th{padding:clamp(5px,1.5vw,8px) clamp(8px,2vw,12px);border:1.5px solid #e0e0e0;text-align:left;}
+.price-table th{background:var(--teal2);color:var(--teal);}
+.price-table tr:nth-child(even){background:#fafafa;}
+.hw-table{border-collapse:collapse;font-size:clamp(.75rem,1.9vw,.92rem);font-weight:700;width:auto;margin:0 auto;}
+.hw-table td,.hw-table th{padding:clamp(4px,1.2vw,7px) clamp(10px,2.5vw,16px);border:1.5px solid #e0e0e0;text-align:center;}
+.hw-table th{background:var(--blue2);color:var(--blue);}
+
+/* ── RESPONSIVE BREAKPOINTS ─────────────── */
+
+/* Large phones & tablets in portrait (480px+) */
+@media(min-width:480px){
+  .options.two-col{grid-template-columns:1fr 1fr;}
+}
+
+/* Small phones — single column options & cards */
+@media(max-width:479px){
+  .options.two-col{grid-template-columns:1fr;}
+  .topic-grid{grid-template-columns:1fr 1fr;}
+  .q-visual svg{max-width:100%;height:auto;}
+  .price-table{font-size:.72rem;}
+  .price-table td,.price-table th{padding:4px 7px;}
+}
+
+/* Very small phones (320px) */
+@media(max-width:359px){
+  .topic-grid{grid-template-columns:1fr;}
+  .yesno{grid-template-columns:1fr 1fr;}
+  .listen-bar{flex-direction:column;align-items:flex-start;}
+}
+
+/* Tablets (768px+) */
+@media(min-width:768px){
+  .screen{padding:24px 28px 56px;}
+  .topic-grid{grid-template-columns:repeat(3,1fr);}
+  .q-card{padding:28px 28px 22px;}
+  .options.two-col{grid-template-columns:1fr 1fr;}
+}
+
+/* Laptops & desktops (1024px+) */
+@media(min-width:1024px){
+  .screen{padding:28px 32px 64px;}
+  .topic-grid{grid-template-columns:repeat(4,1fr);}
+  .home-hero h1{font-size:2.2rem;}
+  .q-text{font-size:1.35rem;}
+  .opt{font-size:1.05rem;padding:14px 18px;}
+}
+
+/* Wide screens — prevent content stretching too wide */
+@media(min-width:1200px){
+  .screen{max-width:780px;}
+}
+
+/* Touch devices — bigger tap targets */
+@media(hover:none) and (pointer:coarse){
+  .opt{padding:15px 16px;min-height:52px;}
+  .btn-next,.btn-back,.res-btn{min-height:48px;}
+  .btn-listen,.btn-listen-ctx{min-height:44px;}
+  .yesno-btn{min-height:70px;}
+  .topbar-btn{min-height:40px;}
+}
+
+/* Landscape phones */
+@media(max-height:500px) and (orientation:landscape){
+  .topbar{padding:8px 16px;}
+  .home-hero{padding:10px 8px 8px;}
+  .q-card{padding:14px 16px 14px;}
+  .screen{padding:10px 14px 24px;}
+}
+
+@media(max-width:480px){
+  .q-text{font-size:1.1rem;}
+  .options.two-col{grid-template-columns:1fr;}
+  .yesno{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-title">📝 Entry 2 Exam Practice</div>
+  <button class="topbar-btn" id="btnHome" onclick="goHome()">🏠 Topics</button>
+</div>
+
+<div class="screen active" id="homeScreen">
+  <div class="home-hero">
+    <h1>Exam Practice 🎯</h1>
+    <p>Choose a topic. Start with section 1 — it's the easiest!</p>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div> Calculator allowed</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div> No calculator</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7b1fa2"></div> Numbers only</div>
+  </div>
+
+  <div style="max-width:660px;margin:0 auto;padding:0 4px 32px;">
+
+    <div class="group-label"><span class="section-num purple">1</span> Number operations — no words</div>
+    <div class="topic-grid" id="groupnums"></div>
+
+    <div class="group-label"><span class="section-num amber">2</span> Sets 7, 8 &amp; 9 — Short papers (2022)</div>
+    <div class="topic-grid" id="group789"></div>
+
+    <div class="group-label"><span class="section-num">3</span> Set 3 — Andy's store (2019)</div>
+    <div class="topic-grid" id="group3"></div>
+
+    <div class="group-label"><span class="section-num">4</span> Set 5 — Rose cycling (2020/21)</div>
+    <div class="topic-grid" id="group5"></div>
+
+    <div class="group-label"><span class="section-num">5</span> Set 9 — Aileen decorates (2022)</div>
+    <div class="topic-grid" id="group9"></div>
+
+    <div class="group-label"><span class="section-num">6</span> Set 1 — Andy at the airport (2023/24)</div>
+    <div class="topic-grid" id="group1"></div>
+
+  </div>
+</div>
+
+<div class="screen" id="quizScreen">
+  <div class="quiz-header">
+    <span class="quiz-pill" id="quizPill"></span>
+    <span class="quiz-counter" id="quizCounter"></span>
+  </div>
+  <div class="prog-bg"><div class="prog-fill" id="progFill"></div></div>
+  <div class="q-card">
+    <div class="q-num" id="qNum"></div>
+    <div class="q-ctx" id="qCtx" style="display:none"></div>
+    <div class="listen-bar" id="listenBar">
+      <button class="btn-listen" id="btnListen" onclick="speakQuestion()">🔊 Listen</button>
+      <button class="btn-listen-ctx" id="btnListenCtx" onclick="speakContext()" style="display:none">🔊 Hear the information</button>
+    </div>
+    <div class="voice-row" id="voiceRow" style="display:none">
+      <label class="voice-label" for="voiceSelect">🎙️ Voice:</label>
+      <select id="voiceSelect" class="voice-select" onchange="onVoiceChange()"></select>
+    </div>
+    <span class="tts-note" id="ttsNote"></span>
+    <div class="q-text" id="qText"></div>
+    <div class="q-visual hidden" id="qVisual"></div>
+    <div class="options" id="optionsDiv"></div>
+    <div class="feedback" id="feedbackDiv"></div>
+    <div class="q-actions">
+      <button class="btn-back" id="btnBack" onclick="goBack()">← Back</button>
+      <button class="btn-next" id="btnNext" onclick="nextQ()">Next →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="resultScreen">
+  <div class="result-wrap">
+    <div class="res-card">
+      <div class="res-top">
+        <div class="res-emoji" id="resEmoji"></div>
+        <div>
+          <div class="res-score" id="resScore"></div>
+          <div class="res-pct" id="resPct"></div>
+        </div>
+      </div>
+      <div class="res-bar-bg"><div class="res-bar-fill" id="resBar"></div></div>
+      <div class="res-msg" id="resMsg"></div>
+    </div>
+    <div class="res-card" id="weakCard" style="display:none">
+      <div class="res-sec-title">📌 Practise these</div>
+      <div id="weakList"></div>
+    </div>
+    <div class="res-card" id="strongCard" style="display:none">
+      <div class="res-sec-title">✅ Well done!</div>
+      <div id="strongList"></div>
+    </div>
+    <div class="res-card">
+      <div class="res-sec-title" style="cursor:pointer" onclick="toggleBD()">
+        📋 All questions <span id="bdToggle" style="font-size:.8rem;color:#90a4ae">▼ show</span>
+      </div>
+      <div class="breakdown" id="bdList" style="display:none"></div>
+    </div>
+    <div class="res-btns">
+      <button class="res-btn retry" onclick="retryTopic()">🔄 Try again</button>
+      <button class="res-btn home" onclick="goHome()">🏠 All topics</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────
+// ─────────────────────────────────────────
+// TEXT TO SPEECH — Best British voice
+// ─────────────────────────────────────────
+const ttsAvailable = 'speechSynthesis' in window;
+let selectedVoice = null;
+let voicesLoaded = false;
+
+// Keywords that score voices higher — best natural British neural voices first
+const VOICE_PRIORITY = [
+  'google uk english female','google uk english male',
+  'microsoft libby','microsoft mia','microsoft ryan','microsoft sonia',
+  'karen','daniel','serena','oliver','stephanie',
+  'en-gb','english (uk)','english uk','british'
+];
+
+function scoreVoice(v) {
+  const name = v.name.toLowerCase();
+  const lang = v.lang.toLowerCase();
+  if (!lang.startsWith('en')) return -1;
+  let score = 0;
+  // British lang tag
+  if (lang === 'en-gb') score += 20;
+  else if (lang.startsWith('en-')) score += 5;
+  // Neural / premium voices (no "compact" or "eloquence" or "(enhanced)" can still be good)
+  if (name.includes('neural')) score += 30;
+  if (name.includes('premium')) score += 25;
+  if (name.includes('enhanced')) score += 20;
+  if (name.includes('natural')) score += 20;
+  // Named voices known to be high quality
+  VOICE_PRIORITY.forEach((kw, i) => {
+    if (name.includes(kw) || lang.includes(kw)) score += (VOICE_PRIORITY.length - i) * 3;
+  });
+  // Avoid low-quality markers
+  if (name.includes('compact')) score -= 15;
+  if (name.includes('whisper')) score -= 10;
+  return score;
+}
+
+function pickBestVoice(voices) {
+  const scored = voices
+    .map(v => ({ v, s: scoreVoice(v) }))
+    .filter(x => x.s >= 0)
+    .sort((a, b) => b.s - a.s);
+  return scored.length ? scored[0].v : null;
+}
+
+function loadVoices() {
+  if (voicesLoaded) return;
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices.length) return;
+  voicesLoaded = true;
+  selectedVoice = pickBestVoice(voices);
+  populateVoiceSelect(voices);
+}
+
+function populateVoiceSelect(voices) {
+  const sel = document.getElementById('voiceSelect');
+  if (!sel) return;
+  sel.innerHTML = '';
+  // Show en-* voices only, sorted best first
+  const enVoices = voices
+    .filter(v => v.lang.toLowerCase().startsWith('en'))
+    .map(v => ({ v, s: scoreVoice(v) }))
+    .sort((a, b) => b.s - a.s)
+    .map(x => x.v);
+  enVoices.forEach(v => {
+    const opt = document.createElement('option');
+    opt.value = v.name;
+    opt.textContent = `${v.name} (${v.lang})`;
+    if (selectedVoice && v.name === selectedVoice.name) opt.selected = true;
+    sel.appendChild(opt);
+  });
+  document.getElementById('voiceRow').style.display = enVoices.length ? 'flex' : 'none';
+}
+
+function onVoiceChange() {
+  const sel = document.getElementById('voiceSelect');
+  const voices = window.speechSynthesis.getVoices();
+  selectedVoice = voices.find(v => v.name === sel.value) || selectedVoice;
+}
+
+if (ttsAvailable) {
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+  loadVoices();
+}
+
+function stopSpeech() {
+  if (ttsAvailable) window.speechSynthesis.cancel();
+  const btn = document.getElementById('btnListen');
+  if (btn) { btn.classList.remove('speaking'); btn.innerHTML = '🔊 Listen'; }
+  const btn2 = document.getElementById('btnListenCtx');
+  if (btn2) { btn2.classList.remove('speaking'); btn2.innerHTML = '🔊 Hear the information'; }
+}
+
+function speakText(text, btnEl, origLabel) {
+  if (!ttsAvailable) {
+    document.getElementById('ttsNote').textContent = 'Text-to-speech not available on this device.';
+    return;
+  }
+  stopSpeech();
+  // Small pause then speak — avoids clipping on some browsers
+  setTimeout(() => {
+    const utt = new SpeechSynthesisUtterance(text);
+    if (selectedVoice) utt.voice = selectedVoice;
+    utt.lang   = selectedVoice ? selectedVoice.lang : 'en-GB';
+    utt.rate   = 0.85;   // slightly slower — clear for ESOL learners
+    utt.pitch  = 1.0;
+    utt.volume = 1.0;
+    if (btnEl) {
+      btnEl.classList.add('speaking');
+      btnEl.innerHTML = '🔊 Reading…';
+      utt.onend   = () => { btnEl.classList.remove('speaking'); btnEl.innerHTML = origLabel; };
+      utt.onerror = () => { btnEl.classList.remove('speaking'); btnEl.innerHTML = origLabel; };
+    }
+    window.speechSynthesis.speak(utt);
+  }, 80);
+}
+
+function speakQuestion() {
+  const q = currentQ();
+  if (!q) return;
+  const btn = document.getElementById('btnListen');
+  const fullText = q.speak || (q.ctx ? `${q.ctx}. ${q.q}` : q.q);
+  speakText(fullText, btn, '🔊 Listen');
+}
+
+function speakContext() {
+  const q = currentQ();
+  if (!q || !q.ctx) return;
+  const btn = document.getElementById('btnListenCtx');
+  speakText(q.ctx, btn, '🔊 Hear the information');
+}
+
+// ─────────────────────────────────────────
+// VISUALS
+// ─────────────────────────────────────────
+function clockSVG(h, m) {
+  const cx=70, cy=70, r=60;
+  const mA = (m/60)*2*Math.PI - Math.PI/2;
+  const hA = ((h%12 + m/60)/12)*2*Math.PI - Math.PI/2;
+  const mx=cx+46*Math.cos(mA), my=cy+46*Math.sin(mA);
+  const hx=cx+32*Math.cos(hA), hy=cy+32*Math.sin(hA);
+  let ticks='', nums='';
+  for(let i=0;i<12;i++){
+    const a=(i/12)*2*Math.PI-Math.PI/2;
+    const x1=cx+54*Math.cos(a), y1=cy+54*Math.sin(a);
+    const x2=cx+60*Math.cos(a), y2=cy+60*Math.sin(a);
+    ticks+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#ccc" stroke-width="2"/>`;
+  }
+  [12,1,2,3,4,5,6,7,8,9,10,11].forEach((n,i)=>{
+    const a=(i/12)*2*Math.PI-Math.PI/2;
+    const nx=cx+46*Math.cos(a), ny=cy+46*Math.sin(a);
+    nums+=`<text x="${nx.toFixed(1)}" y="${(ny+4).toFixed(1)}" text-anchor="middle" font-size="11" font-family="Nunito" font-weight="700" fill="#333">${n}</text>`;
+  });
+  return `<svg viewBox="0 0 140 140" width="140" height="140">
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="white" stroke="#ddd" stroke-width="3"/>
+    ${ticks}${nums}
+    <line x1="${cx}" y1="${cy}" x2="${hx.toFixed(1)}" y2="${hy.toFixed(1)}" stroke="#1a2035" stroke-width="5" stroke-linecap="round"/>
+    <line x1="${cx}" y1="${cy}" x2="${mx.toFixed(1)}" y2="${my.toFixed(1)}" stroke="#00897B" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="${cx}" cy="${cy}" r="4" fill="#1a2035"/>
+  </svg>`;
+}
+
+function thermoSVG(temp, color='#e53935') {
+  const maxT=30, minT=0;
+  const fillH=Math.max(0,Math.min(1,(temp-minT)/(maxT-minT)));
+  const tubeH=80, tubeY=20, bulbR=12;
+  const bulbCy=tubeY+tubeH+bulbR-4;
+  const fillTop=tubeY+tubeH-fillH*tubeH;
+  return `<svg viewBox="0 0 70 160" width="70" height="160">
+    <rect x="24" y="${tubeY}" width="16" height="${tubeH}" rx="8" fill="#f1f5f9" stroke="#ddd" stroke-width="1.5"/>
+    <rect x="26" y="${fillTop.toFixed(1)}" width="12" height="${(tubeH-(fillTop-tubeY)).toFixed(1)}" rx="4" fill="${color}"/>
+    <circle cx="32" cy="${bulbCy}" r="${bulbR}" fill="${color}" stroke="#ddd" stroke-width="1.5"/>
+    ${[0,10,20,30].map(t=>{
+      const yy=tubeY+tubeH-((t-minT)/(maxT-minT))*tubeH;
+      return `<line x1="40" y1="${yy.toFixed(1)}" x2="46" y2="${yy.toFixed(1)}" stroke="#999" stroke-width="1.5"/>
+              <text x="48" y="${(yy+4).toFixed(1)}" font-size="9" font-family="Nunito" font-weight="700" fill="#555">${t}°</text>`;
+    }).join('')}
+  </svg>`;
+}
+
+function barChartSVG(bars, title, yMax) {
+  const W=300,H=170,padL=38,padB=30,padT=26,padR=12;
+  const cW=W-padL-padR, cH=H-padT-padB;
+  const bw=Math.floor(cW/bars.length*0.55);
+  const gap=cW/bars.length;
+  let rects='',labels='',yLines='';
+  [0,Math.round(yMax/4),Math.round(yMax/2),Math.round(yMax*3/4),yMax].forEach(v=>{
+    const y=padT+cH-(v/yMax)*cH;
+    yLines+=`<line x1="${padL}" y1="${y.toFixed(1)}" x2="${W-padR}" y2="${y.toFixed(1)}" stroke="#e8edf0" stroke-width="1"/>
+             <text x="${(padL-4).toFixed(1)}" y="${(y+4).toFixed(1)}" text-anchor="end" font-size="9" font-family="Nunito" fill="#777">${v}</text>`;
+  });
+  bars.forEach((b,i)=>{
+    const bh=(b.value/yMax)*cH;
+    const bx=padL+i*gap+(gap-bw)/2;
+    const by=padT+cH-bh;
+    rects+=`<rect x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${bw}" height="${bh.toFixed(1)}" fill="${b.color}" rx="3"/>
+            <text x="${(bx+bw/2).toFixed(1)}" y="${(padT+cH-bh-5).toFixed(1)}" text-anchor="middle" font-size="9" font-family="Nunito" font-weight="700" fill="#333">${b.value}</text>`;
+    labels+=`<text x="${(bx+bw/2).toFixed(1)}" y="${(H-8).toFixed(1)}" text-anchor="middle" font-size="9" font-family="Nunito" font-weight="700" fill="#555">${b.label}</text>`;
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
+    <text x="${W/2}" y="16" text-anchor="middle" font-size="11" font-family="Nunito" font-weight="800" fill="#333">${title}</text>
+    ${yLines}${rects}${labels}
+    <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT+cH}" stroke="#ccc" stroke-width="1.5"/>
+    <line x1="${padL}" y1="${padT+cH}" x2="${W-padR}" y2="${padT+cH}" stroke="#ccc" stroke-width="1.5"/>
+  </svg>`;
+}
+
+function scalePointerSVG(grams, maxG=200) {
+  const W=220, H=64, cx=110, cy=58, r=48;
+  const frac=Math.min(1,grams/maxG);
+  const angle=(-90+frac*180)*Math.PI/180;
+  const px=cx+r*Math.cos(angle), py=cy+r*Math.sin(angle);
+  const ticks=[0,Math.round(maxG/4),Math.round(maxG/2),Math.round(maxG*3/4),maxG].map(v=>{
+    const a=(-90+(v/maxG)*180)*Math.PI/180;
+    const x1=cx+(r-8)*Math.cos(a), y1=cy+(r-8)*Math.sin(a);
+    const x2=cx+(r+2)*Math.cos(a), y2=cy+(r+2)*Math.sin(a);
+    const tx=cx+(r+16)*Math.cos(a), ty=cy+(r+16)*Math.sin(a);
+    return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#888" stroke-width="2"/>
+            <text x="${tx.toFixed(1)}" y="${(ty+3).toFixed(1)}" text-anchor="middle" font-size="8" font-family="Nunito" fill="#555">${v}</text>`;
+  }).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
+    <path d="M ${cx-r} ${cy} A ${r} ${r} 0 0 1 ${cx+r} ${cy}" fill="none" stroke="#e0e0e0" stroke-width="8" stroke-linecap="round"/>
+    ${ticks}
+    <line x1="${cx}" y1="${cy}" x2="${px.toFixed(1)}" y2="${py.toFixed(1)}" stroke="#e53935" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="${cx}" cy="${cy}" r="5" fill="#1a2035"/>
+  </svg>`;
+}
+
+function coinsHTML(coins) {
+  return coins.map(c=>{
+    const sz=c.val.includes('£')&&!c.val.includes('p')?52:42;
+    return `<div class="coin coin-${c.type}" style="width:${sz}px;height:${sz}px;font-size:${sz>46?'.78rem':'.72rem'}">${c.val}</div>`;
+  }).join('');
+}
+
+// ─────────────────────────────────────────
+// TOPIC DATA — drawn from uploaded past papers
+// Set 3 (2019) and Set 5 (2020-21)
+// ─────────────────────────────────────────
+const TOPICS = [
+
+// ── SET 3 SECTION B ──────────────────────
+{id:'set3b', icon:'📄', name:'Set 3 — Section B', desc:'Calculator allowed • 15 questions',
+questions:[
+  {
+    ctx:'Arvin has a job in a store. The store is open every week of the year.',
+    q:'How many weeks are there in one year?',
+    speak:'Arvin has a job in a store. The store is open every week of the year. How many weeks are there in one year?',
+    type:'mc', visual:()=>'',
+    opts:['12','48','52','56'], ans:2,
+    fb:'✅ There are 52 weeks in one year.', skill:'Days and weeks'
+  },
+  {
+    ctx:'Arvin has £90 to spend on clothes for work. He buys a shirt for £38.',
+    q:'How much money does Arvin have left over?',
+    speak:'Arvin has 90 pounds to spend on clothes for work. He buys a shirt for 38 pounds. How much money does Arvin have left over?',
+    type:'mc', visual:()=>coinsHTML([{val:'£90',type:'gold'},{val:'−',type:'silver'},{val:'£38',type:'gold'}]),
+    opts:['£42','£48','£52','£62'], ans:2,
+    fb:'✅ £90 − £38 = £52.', skill:'Subtract money'
+  },
+  {
+    ctx:'',
+    q:'Round 38 to the nearest 10.',
+    speak:'Round 38 to the nearest 10.',
+    type:'mc', visual:()=>'',
+    opts:['30','35','38','40'], ans:3,
+    fb:'✅ 38 → 40. The ones digit is 8, which is 5 or more, so round up.', skill:'Rounding'
+  },
+  {
+    ctx:'Arvin has a price list for headphones: white wireless £48, black folding £66, blue folding £24, green basic £23, red wireless £63, white folding £55, black wireless £72. A customer wants wireless headphones and pays between £50 and £70.',
+    q:'Which headphones does the customer buy?',
+    speak:'Arvin has a price list for headphones. A customer wants wireless headphones and pays between 50 pounds and 70 pounds. Which headphones does the customer buy?',
+    type:'mc', visual:()=>`<table class="price-table"><tr><th>Headphones</th><th>Price</th></tr>
+      <tr><td>White wireless</td><td>£48</td></tr>
+      <tr><td>Red wireless</td><td>£63</td></tr>
+      <tr><td>Black wireless</td><td>£72</td></tr></table>`,
+    opts:['White wireless','Red wireless','Black wireless','Blue folding'], ans:1,
+    fb:'✅ Red wireless at £63 is the only wireless headphone that costs between £50 and £70.', skill:'Read a price list'
+  },
+  {
+    ctx:'The total number of people working in the store is 40. Half of the people are women.',
+    q:'How many women are there?',
+    speak:'The total number of people working in the store is 40. Half of the people are women. How many women are there?',
+    type:'mc', visual:()=>'<div style="font-size:2rem;font-weight:900">40 ÷ 2 = ?</div>',
+    opts:['4','10','20','30'], ans:2,
+    fb:'✅ Half of 40 = 40 ÷ 2 = 20 women.', skill:'Half of a number'
+  },
+  {
+    ctx:'Arvin sells phones. A customer wants a 16 GB phone and wants to pay less than £40 each month.',
+    q:'Which phone does the customer buy?',
+    speak:'Arvin sells phones. A customer wants a 16 gigabyte phone and wants to pay less than 40 pounds each month. Which phone does the customer buy?',
+    type:'mc', visual:()=>`<table class="price-table"><tr><th>Storage</th><th>Price per month</th></tr>
+      <tr><td>16 GB</td><td>£44</td></tr>
+      <tr><td>64 GB</td><td>£39</td></tr>
+      <tr><td>16 GB</td><td>£40</td></tr>
+      <tr><td>16 GB</td><td>£42</td></tr>
+      <tr><td>16 GB</td><td>£37</td></tr></table>`,
+    opts:['16 GB — £44/month','64 GB — £39/month','16 GB — £40/month','16 GB — £37/month'], ans:3,
+    fb:'✅ The customer needs 16 GB and less than £40. Only £37/month is both 16 GB and under £40.', skill:'Read a table'
+  },
+  {
+    ctx:'Only type A and type B phones were sold last week. A total of 30 phones were sold. The chart shows type A phones sold (17).',
+    q:'How many type B phones were sold?',
+    speak:'Only type A and type B phones were sold last week. A total of 30 phones were sold. The chart shows 17 type A phones. How many type B phones were sold?',
+    type:'mc', visual:()=>barChartSVG([{label:'Type A',value:17,color:'#1E88E5'},{label:'Type B',value:13,color:'#90CAF9'}],'Phones sold last week',30),
+    opts:['10','11','13','15'], ans:2,
+    fb:'✅ 30 − 17 = 13 type B phones.', skill:'Bar chart totals'
+  },
+  {
+    ctx:'The temperature in the warehouse is 16°C. The thermometer shows the temperature in the store.',
+    q:'How much warmer is it in the store than in the warehouse?',
+    speak:'The temperature in the warehouse is 16 degrees. The thermometer shows the temperature in the store. How much warmer is it in the store than in the warehouse?',
+    type:'mc', visual:()=>thermoSVG(22,'#e53935'),
+    opts:['4°C','6°C','8°C','10°C'], ans:1,
+    fb:'✅ The store is 22°C. 22 − 16 = 6°C warmer.', skill:'Temperature'
+  },
+  {
+    ctx:'A clock shows 16:00. Arvin will leave work at six o\'clock in the afternoon.',
+    q:'Is it time for Arvin to leave work?',
+    speak:'A clock shows 16 hundred hours. Arvin will leave work at six o\'clock in the afternoon. Is it time for Arvin to leave work?',
+    type:'yesno', visual:()=>`<div style="background:#1a2035;border-radius:16px;padding:20px 32px;display:inline-block;box-shadow:0 4px 20px rgba(0,0,0,.3)">
+      <div style="font-family:'Courier New',monospace;font-size:3.5rem;font-weight:900;color:#00e5ff;letter-spacing:8px;text-shadow:0 0 20px rgba(0,229,255,.6)">16:00</div>
+      <div style="font-family:'Nunito',sans-serif;font-size:.75rem;color:#90a4ae;text-align:center;margin-top:4px;letter-spacing:2px">24-HOUR CLOCK</div>
+    </div>`,
+    ans:'no',
+    fb:'✅ No. 16:00 = 4pm. Six o\'clock in the afternoon = 18:00. It is not yet time to leave.', skill:'24-hour clock'
+  },
+  {
+    ctx:'Arvin keeps calculators on a shelf. Each row holds 10 calculators. There are 4 full rows and 6 more. A customer wants 50 calculators.',
+    q:'Are there enough calculators on the shelf?',
+    speak:'Arvin keeps calculators on a shelf. There are 46 calculators. A customer wants 50. Are there enough calculators on the shelf?',
+    type:'yesno', visual:()=>'<div style="text-align:center;line-height:2;font-size:1.1rem;font-weight:800">🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮<br>🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮<br>🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮<br>🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮<br>🧮🧮🧮🧮🧮🧮<br><small style="color:#78909c">= 46 calculators</small></div>',
+    ans:'no',
+    fb:'✅ No. There are 46 calculators. The customer wants 50. 46 < 50.', skill:'Compare numbers'
+  },
+  {
+    ctx:'Rumtin packs calculators in a box.',
+    q:'What is the name of this 3D shape?',
+    speak:'Rumtin packs calculators in a box. Look at the picture of the box. What is the name of this three dimensional shape?',
+    type:'mc', visual:()=>`<svg viewBox="0 0 130 110" width="120" height="100">
+      <polygon points="20,48 82,48 82,96 20,96" fill="#42A5F5" stroke="#1565C0" stroke-width="2"/>
+      <polygon points="20,48 48,22 110,22 82,48" fill="#90CAF9" stroke="#1565C0" stroke-width="2"/>
+      <polygon points="82,48 110,22 110,70 82,96" fill="#1E88E5" stroke="#1565C0" stroke-width="2"/>
+    </svg>`,
+    opts:['Cylinder','Sphere','Pyramid','Cuboid'], ans:3,
+    fb:'✅ Cuboid — like a cereal box or a brick. It has 6 rectangular faces.', skill:'3D shapes'
+  },
+  {
+    ctx:'The scale shows the weight of an empty box. The weight of a phone charger is 80 grams.',
+    q:'What is the total weight of the box and the charger?',
+    speak:'The scale shows the weight of an empty box. The weight of a phone charger is 80 grams. What is the total weight of the box and the charger?',
+    type:'mc', visual:()=>scalePointerSVG(60,200)+'<div style="font-size:.9rem;font-weight:800;color:#546e7a;margin-top:4px">Box = 60 g &nbsp;+&nbsp; Charger = 80 g</div>',
+    opts:['100 g','120 g','140 g','160 g'], ans:2,
+    fb:'✅ The box weighs 60 g. 60 + 80 = 140 g.', skill:'Measures'
+  },
+  {
+    ctx:'Rumtin drives a delivery lorry. The lorry is in the middle. Position A is above, B is to the left, C is to the right, D is below.',
+    q:'Rumtin needs to move the lorry to position D. Which direction does he move?',
+    speak:'Rumtin drives a delivery lorry. Position D is below the lorry. Which direction does Rumtin need to move the lorry?',
+    type:'mc', visual:()=>`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:8px;width:160px;text-align:center;font-weight:800">
+      <div></div><div style="background:var(--teal2);border-radius:8px;padding:6px">A</div><div></div>
+      <div style="background:var(--amber2);border-radius:8px;padding:6px">B</div><div style="font-size:1.5rem">🚛</div><div style="background:var(--amber2);border-radius:8px;padding:6px">C</div>
+      <div></div><div style="background:var(--blue2);border-radius:8px;padding:6px">D</div><div></div>
+    </div>`,
+    opts:['To the left','Forwards','To the right','Backwards'], ans:3,
+    fb:'✅ D is below the lorry. The lorry moves backwards to reach D.', skill:'Direction'
+  },
+  {
+    ctx:'These are the shelf numbers in the warehouse: 85, 87, 89.',
+    q:'What is the next odd number?',
+    speak:'These are the shelf numbers in the warehouse: 85, 87, 89. What is the next odd number?',
+    type:'mc', visual:()=>'<div style="font-size:1.8rem;font-weight:900;letter-spacing:8px">85 &nbsp; 87 &nbsp; 89 &nbsp; ___</div>',
+    opts:['88','90','91','93'], ans:2,
+    fb:'✅ 91. The pattern goes up by 2 each time: 85, 87, 89, 91.', skill:'Odd numbers'
+  },
+  {
+    ctx:'The chart shows Rumtin\'s deliveries each week. Week One: 13, Week Two: 15, Week Three: 12, Week Four: 27.',
+    q:'How many more deliveries did Rumtin make in week four than in week one?',
+    speak:'The chart shows Rumtin\'s deliveries each week. Week one: 13 deliveries. Week four: 27 deliveries. How many more deliveries did Rumtin make in week four than in week one?',
+    type:'mc', visual:()=>barChartSVG([{label:'Week 1',value:13,color:'#1E88E5'},{label:'Week 2',value:15,color:'#43A047'},{label:'Week 3',value:12,color:'#F9A825'},{label:'Week 4',value:27,color:'#E53935'}],'Deliveries each week',30),
+    opts:['10','12','14','16'], ans:2,
+    fb:'✅ 27 − 13 = 14 more deliveries in week four.', skill:'Bar charts'
+  },
+]},
+
+// ── SET 3 SECTION A ──────────────────────
+{id:'set3a', icon:'📝', name:'Set 3 — Section A', desc:'No calculator • 3 questions',
+questions:[
+  {
+    ctx:'Emma goes shopping online. She wants to know the cost of a phone for one year. The phone costs £11 per month.',
+    q:'Complete the calculation: 11 × 12 = ?',
+    speak:'Emma goes shopping online. She wants to know the cost of a phone for one year. The phone costs 11 pounds per month. Complete the calculation: 11 times 12 equals what?',
+    type:'mc', visual:()=>'<div style="font-size:1.8rem;font-weight:900">11 × 12 = ?</div>',
+    opts:['112','122','132','142'], ans:2,
+    fb:'✅ 11 × 12 = 132. There are 12 months in a year.', skill:'Times tables'
+  },
+  {
+    ctx:'Emma buys a game for £49 and a book for £18.',
+    q:'How much does she pay in total?',
+    speak:'Emma buys a game for 49 pounds and a book for 18 pounds. How much does she pay in total?',
+    type:'mc', visual:()=>coinsHTML([{val:'£49',type:'gold'},{val:'+',type:'silver'},{val:'£18',type:'gold'}]),
+    opts:['£57','£62','£67','£77'], ans:2,
+    fb:'✅ £49 + £18 = £67.', skill:'Add money'
+  },
+  {
+    ctx:'Emma sees a bracelet for £7 each. She has £30 to spend and buys as many as she can.',
+    q:'How many bracelets does Emma buy? How much money is left over?',
+    speak:'Emma sees bracelets for 7 pounds each. She has 30 pounds to spend and buys as many as she can. How many bracelets does Emma buy, and how much money is left over?',
+    type:'mc', visual:()=>'<div style="font-size:1.3rem;font-weight:800">£30 ÷ £7 = ?</div>',
+    opts:['3 bracelets, £9 left','4 bracelets, £2 left','4 bracelets, £4 left','5 bracelets, £5 left'], ans:1,
+    fb:'✅ 30 ÷ 7 = 4 remainder 2. Emma buys 4 bracelets and has £2 left.', skill:'Division with remainder'
+  },
+]},
+
+// ── SET 5 SECTION B ──────────────────────
+{id:'set5b', icon:'📄', name:'Set 5 — Section B', desc:'Calculator allowed • 16 questions',
+questions:[
+  {
+    ctx:'Rose goes cycling. She buys fruit for 40p and crisps for 48p.',
+    q:'How much does Rose pay in total for the fruit and crisps?',
+    speak:'Rose goes cycling. She buys fruit for 40 pence and crisps for 48 pence. How much does Rose pay in total for the fruit and crisps?',
+    type:'mc', visual:()=>coinsHTML([{val:'40p',type:'silver'},{val:'+',type:'silver'},{val:'48p',type:'silver'}]),
+    opts:['78p','80p','88p','98p'], ans:2,
+    fb:'✅ 40p + 48p = 88p.', skill:'Add money'
+  },
+  {
+    ctx:'',
+    q:'Round 48 to the nearest 10.',
+    speak:'Round 48 to the nearest 10.',
+    type:'mc', visual:()=>'<div style="font-size:1.8rem;font-weight:900">Round 48 to nearest 10</div>',
+    opts:['40','45','48','50'], ans:3,
+    fb:'✅ 48 → 50. The ones digit is 8, which is 5 or more, so round up.', skill:'Rounding'
+  },
+  {
+    ctx:'Rose cycles 9 km each day for 7 days. She works out how far she cycles: 9 □ 7 = 63.',
+    q:'What is the missing symbol?',
+    speak:'Rose cycles 9 kilometres each day for 7 days. She works out how far she cycles. The calculation is: 9, then a missing symbol, then 7, equals 63. What is the missing symbol?',
+    type:'mc', visual:()=>'<div style="font-size:2rem;font-weight:900">9 &nbsp;?&nbsp; 7 = 63</div>',
+    opts:['+','−','×','÷'], ans:2,
+    fb:'✅ × means multiply. 9 × 7 = 63.', skill:'Symbols'
+  },
+  {
+    ctx:'The best weight for cyclists depends on their height.',
+    q:'Rose is 167 cm tall and weighs 59 kg. Does Rose have the best weight for cycling?',
+    speak:'The best weight for cyclists depends on their height. Rose is 167 centimetres tall and weighs 59 kilograms. Look at the table. Does Rose have the best weight for cycling?',
+    type:'yesno', visual:()=>`<table class="hw-table"><tr><th>Height</th><th>Best weight</th></tr>
+      <tr><td>166 cm</td><td>55 kg</td></tr>
+      <tr><td>167 cm</td><td>56 kg</td></tr>
+      <tr><td>168 cm</td><td>57 kg</td></tr>
+      <tr><td>169 cm</td><td>58 kg</td></tr>
+      <tr><td>170 cm</td><td>59 kg</td></tr></table>`,
+    ans:'no',
+    fb:'✅ No. At 167 cm the best weight is 56 kg. Rose weighs 59 kg, which is not the best weight.', skill:'Read a table'
+  },
+  {
+    ctx:'Rose wants to buy new cycling shoes. She has £50 to spend. She buys the most expensive black shoes she can.',
+    q:'Which shoes does Rose buy?',
+    speak:'Rose wants to buy new cycling shoes. She has 50 pounds to spend. She buys the most expensive black shoes she can. Which shoes does Rose buy?',
+    type:'mc', visual:()=>`<table class="price-table"><tr><th>Colour</th><th>Price</th></tr>
+      <tr><td>White</td><td>£54</td></tr>
+      <tr><td>Black</td><td>£46</td></tr>
+      <tr><td>Black</td><td>£39</td></tr>
+      <tr><td>Black</td><td>£51</td></tr>
+      <tr><td>Black</td><td>£48</td></tr>
+      <tr><td>White</td><td>£49</td></tr></table>`,
+    opts:['£39','£46','£48','£51'], ans:2,
+    fb:'✅ Black £48. She needs black shoes under £50. The most expensive black shoes under £50 cost £48.', skill:'Read a price list'
+  },
+  {
+    ctx:'Rose cycles for 6 hours in one day. She thinks 6 hours is half of one day.',
+    q:'Is Rose correct?',
+    speak:'Rose cycles for 6 hours in one day. She thinks 6 hours is half of one day. Is Rose correct?',
+    type:'yesno', visual:()=>'<div style="font-size:1.2rem;font-weight:800;text-align:center">½ of one day<br><span style="font-size:.9rem;color:#78909c">(1 day = 24 hours)</span></div>',
+    ans:'no',
+    fb:'✅ No. Half of 24 hours = 12 hours. Rose cycles 6 hours, which is ¼ of a day, not ½.', skill:'Fractions'
+  },
+  {
+    ctx:'Rose has information about cycling shirts.',
+    q:'Rose buys the cheapest red shirt. How much does she pay?',
+    speak:'Rose has information about cycling shirts. Rose buys the cheapest red shirt. How much does she pay?',
+    type:'mc', visual:()=>`<table class="price-table"><tr><th>Colour</th><th>Price</th></tr>
+      <tr><td>Red</td><td>£45</td></tr>
+      <tr><td>White</td><td>£25</td></tr>
+      <tr><td>Blue</td><td>£31</td></tr>
+      <tr><td>Red</td><td>£42</td></tr>
+      <tr><td>White</td><td>£45</td></tr>
+      <tr><td>Red</td><td>£29</td></tr>
+      <tr><td>Red</td><td>£38</td></tr></table>`,
+    opts:['£29','£38','£42','£45'], ans:0,
+    fb:'✅ £29. The red shirts cost £45, £42, £29 and £38. The cheapest is £29.', skill:'Read a table'
+  },
+  {
+    ctx:'Rose books a cycling holiday. The diagram shows the shape of a cycling route.',
+    q:'What is the name of the shape of the route?',
+    speak:'Rose books a cycling holiday. The diagram shows the shape of a cycling route. Look at the shape. What is the name of the shape of the route?',
+    type:'mc', visual:()=>`<svg viewBox="0 0 120 110" width="120" height="110">
+      <polygon points="60,8 108,42 90,100 30,100 12,42" fill="none" stroke="#00897B" stroke-width="3"/>
+    </svg>`,
+    opts:['Rectangle','Hexagon','Pentagon','Square'], ans:2,
+    fb:'✅ Pentagon — 5 sides, 5 corners.', skill:'2D shapes'
+  },
+  {
+    ctx:'These are the costs of the cycling holiday: Food £85, Bus £78, Guides £93, Camping £87.',
+    q:'Show the cost for camping on the chart. Which bar should reach £87?',
+    speak:'These are the costs of the cycling holiday. Food: 85 pounds. Bus: 78 pounds. Guides: 93 pounds. Camping: 87 pounds. Which bar on the chart should reach 87 pounds for camping?',
+    type:'mc', visual:()=>barChartSVG([{label:'Food',value:85,color:'#F9A825'},{label:'Bus',value:78,color:'#1E88E5'},{label:'Guides',value:93,color:'#43A047'},{label:'Camping',value:87,color:'#9E9E9E'}],'Cost of holiday',100),
+    opts:['£78','£85','£87','£93'], ans:2,
+    fb:'✅ Camping costs £87. The camping bar should reach 87 on the chart.', skill:'Bar charts'
+  },
+  {
+    ctx:'Rose is in a cafe. She is going to cycle to the top of a hill. The thermometer shows the temperature in the cafe. The temperature on top of the hill is 9°C.',
+    q:'How much colder is it on top of the hill than in the cafe?',
+    speak:'Rose is in a cafe. The thermometer shows the temperature in the cafe. The temperature on top of the hill is 9 degrees. How much colder is it on top of the hill than in the cafe?',
+    type:'mc', visual:()=>thermoSVG(20,'#f59e0b'),
+    opts:['9°C','11°C','13°C','29°C'], ans:1,
+    fb:'✅ The cafe is 20°C. 20 − 9 = 11°C colder on the hill.', skill:'Temperature'
+  },
+  {
+    ctx:'A road race starts and ends at Kendal. The route goes through several villages.',
+    q:'How many villages does the route go through?',
+    speak:'A road race starts and ends at Kendal. The route goes through several villages. How many villages does the route go through?',
+    type:'mc', visual:()=>`<div style="background:#f5f0e8;border-radius:12px;padding:12px;font-size:.85rem;font-weight:700;line-height:2">
+      Route: Kendal → Burneside → Selside → Beck Foot → Lake → Natland → Levens → Crooke → Kendal
+      <br><span style="color:#78909c">Villages on the route are shown above</span>
+    </div>`,
+    opts:['4','5','6','8'], ans:2,
+    fb:'✅ The route goes through 6 villages: Burneside, Selside, Beck Foot, Lake, Natland, Levens.', skill:'Read a map'
+  },
+  {
+    ctx:'The diagram shows part of the race route. The route goes between a lake and a forest.',
+    q:'Which sentence is correct?',
+    speak:'The diagram shows part of the race route. The route goes between a lake and a forest. Which sentence is correct?',
+    type:'mc', visual:()=>`<div style="display:flex;align-items:center;gap:16px;font-weight:800">
+      <div style="background:#b3e5fc;border-radius:50%;width:70px;height:70px;display:flex;align-items:center;justify-content:center;font-size:.8rem">🏞️<br>Lake</div>
+      <div style="background:var(--teal2);border:3px dashed var(--teal);border-radius:8px;padding:8px 12px;font-size:.85rem">Route ↑</div>
+      <div style="background:#c8e6c9;border-radius:8px;width:70px;height:70px;display:flex;align-items:center;justify-content:center;font-size:.8rem">🌲<br>Forest</div>
+    </div>`,
+    opts:['The route goes through the middle of the forest','The route goes on top of the lake','The route goes between the lake and the forest','The route goes inside the lake'], ans:2,
+    fb:'✅ The route goes between the lake and the forest.', skill:'Position'
+  },
+  {
+    ctx:'The race organiser puts a sign on the road. The sign is in the shape of a pyramid with a square base.',
+    q:'The sign has information on every face that people can see. On how many faces can people see information?',
+    speak:'The race organiser puts a sign on the road. The sign is in the shape of a pyramid with a square base. The sign has information on every face that people can see. On how many faces can people see information?',
+    type:'mc', visual:()=>`<svg viewBox="0 0 110 110" width="110" height="110">
+      <polygon points="55,10 100,90 10,90" fill="#FFA726" stroke="#E65100" stroke-width="2"/>
+      <polygon points="100,90 55,10 112,70" fill="#FF8F00" stroke="#E65100" stroke-width="2"/>
+      <polygon points="10,90 55,10 -2,70" fill="#FFB74D" stroke="#E65100" stroke-width="2"/>
+      <polygon points="10,90 100,90 112,70 -2,70" fill="#FFCC80" stroke="#E65100" stroke-width="1.5"/>
+    </svg>`,
+    opts:['2','4','5','8'], ans:1,
+    fb:'✅ 4 faces. A square-based pyramid has 4 triangular faces on the sides (the square base is on the ground and cannot be seen).', skill:'3D shapes'
+  },
+  {
+    ctx:'The race starts at a quarter to eleven. The clock shows the time now.',
+    q:'Is it time for the race to start?',
+    speak:'The race starts at a quarter to eleven. The clock shows the time now. Is it time for the race to start?',
+    type:'yesno', visual:()=>clockSVG(9,15),
+    ans:'no',
+    fb:'✅ No. The clock shows 9:15 (quarter past nine). The race starts at 10:45 (quarter to eleven). It is not yet time.', skill:'Read a clock'
+  },
+  {
+    ctx:'Each cyclist has a number: 12, 19, 26, 32, 37, 41, 46, 50. Cyclists with even numbers go out in the morning.',
+    q:'How many cyclists go out in the morning?',
+    speak:'Each cyclist has a number: 12, 19, 26, 32, 37, 41, 46, 50. Cyclists with even numbers go out in the morning. How many cyclists go out in the morning?',
+    type:'mc', visual:()=>'<div style="font-size:1.3rem;font-weight:900;letter-spacing:4px">12 &nbsp;19 &nbsp;26 &nbsp;32<br>37 &nbsp;41 &nbsp;46 &nbsp;50</div>',
+    opts:['3','4','5','6'], ans:2,
+    fb:'✅ Even numbers: 12, 26, 32, 46, 50 = 5 cyclists go out in the morning.', skill:'Odd and even'
+  },
+  {
+    ctx:'The bar chart shows race times for the cyclists in the first four positions.',
+    q:'What is the difference in race time between first and second position?',
+    speak:'The bar chart shows race times for cyclists. First position: 79 minutes. Second position: 84 minutes. What is the difference in race time between first and second position?',
+    type:'mc', visual:()=>barChartSVG([{label:'1st',value:79,color:'#FDD835'},{label:'2nd',value:84,color:'#90CAF9'},{label:'3rd',value:87,color:'#A5D6A7'},{label:'4th',value:94,color:'#EF9A9A'}],'Race times (minutes)',100),
+    opts:['3 min','5 min','8 min','15 min'], ans:1,
+    fb:'✅ 84 − 79 = 5 minutes difference.', skill:'Bar charts'
+  },
+]},
+
+// ── SET 5 SECTION A ──────────────────────
+{id:'set5a', icon:'📝', name:'Set 5 — Section A', desc:'No calculator • 4 questions',
+questions:[
+  {
+    ctx:'Rose wants to go on a cycling holiday. She buys two pairs of cycling shorts. The shorts cost £39 and £52.',
+    q:'Complete the calculation: 39 + 52 = ?',
+    speak:'Rose wants to go on a cycling holiday. She buys two pairs of cycling shorts costing 39 pounds and 52 pounds. Complete the calculation: 39 plus 52 equals what?',
+    type:'mc', visual:()=>'<div style="font-size:1.8rem;font-weight:900">39 + 52 = ?</div>',
+    opts:['81','89','91','101'], ans:2,
+    fb:'✅ 39 + 52 = 91.', skill:'Addition'
+  },
+  {
+    ctx:'Rose will cycle 47 km on day one. She will cycle 75 km on day two.',
+    q:'How much further will Rose cycle on day two than on day one?',
+    speak:'Rose will cycle 47 kilometres on day one. She will cycle 75 kilometres on day two. How much further will Rose cycle on day two than on day one?',
+    type:'mc', visual:()=>'<div style="font-size:1.1rem;font-weight:800">Day 1: 47 km<br>Day 2: 75 km</div>',
+    opts:['22 km','28 km','32 km','38 km'], ans:1,
+    fb:'✅ 75 − 47 = 28 km further on day two.', skill:'Subtraction'
+  },
+  {
+    ctx:'Rose buys 8 wristbands. Each wristband costs 12p.',
+    q:'Complete the calculation: 8 × 12 = ?',
+    speak:'Rose buys 8 wristbands. Each wristband costs 12 pence. Complete the calculation: 8 times 12 equals what?',
+    type:'mc', visual:()=>'<div style="font-size:1.8rem;font-weight:900">8 × 12 = ?</div>',
+    opts:['86p','92p','96p','106p'], ans:2,
+    fb:'✅ 8 × 12 = 96p.', skill:'Times tables'
+  },
+  {
+    ctx:'Rose buys energy bars for the holiday. She wants 50 bars. They are only sold in boxes of 6.',
+    q:'How many boxes does Rose buy? How many bars are left over?',
+    speak:'Rose buys energy bars for the holiday. She wants 50 bars. They are only sold in boxes of 6. How many boxes does Rose buy, and how many bars are left over?',
+    type:'mc', visual:()=>'<div style="font-size:1.1rem;font-weight:800">50 bars ÷ 6 per box = ?</div>',
+    opts:['7 boxes, 8 left over','8 boxes, 2 left over','9 boxes, 4 left over','8 boxes, 4 left over'], ans:3,
+    fb:'✅ 50 ÷ 6 = 8 remainder 2. Rose buys 9 boxes (to get at least 50 bars). 9 × 6 = 54 bars. 54 − 50 = 4 bars left over.', skill:'Division with remainder'
+  },
+]},
+
+// ── SET 1 (2023-24) SECTION B ─────────────
+{id:'set1b', icon:'📄', name:'Set 1 (2023–24) — Section B', desc:'Andy at the airport • Calculator allowed',
+questions:[
+  {
+    ctx:'Andy works at an airport. He looks at the map. The check-in area is between security and the waiting area.',
+    q:'Where is the check-in area on the map?',
+    speak:'Andy works at an airport. He looks at the map. The check-in area is between security and the waiting area. Where is the check-in area on the map?',
+    type:'mc', visual:()=>`<div style="display:flex;flex-direction:column;align-items:center;gap:8px;font-weight:800;font-size:.9rem">
+      <div style="background:var(--teal2);border:2px solid var(--teal);border-radius:8px;padding:8px 24px">Security</div>
+      <div style="color:#90a4ae;font-size:.8rem">↕</div>
+      <div style="background:var(--amber2);border:2px dashed var(--amber);border-radius:8px;padding:8px 24px">?</div>
+      <div style="color:#90a4ae;font-size:.8rem">↕</div>
+      <div style="background:var(--blue2);border:2px solid var(--blue);border-radius:8px;padding:8px 24px">Waiting area</div>
+    </div>`,
+    opts:['Above security','Between security and the waiting area','Below the waiting area','Next to the waiting area'], ans:1,
+    fb:'✅ Between security and the waiting area — it is in the middle of the two.', skill:'Position'
+  },
+  {
+    ctx:'Each check-in desk has a number. The numbers follow a pattern: 25, 26, 27... Andy works at the next desk with an odd number.',
+    q:'What is the number on the desk where Andy works?',
+    speak:'Each check-in desk has a number. The numbers follow a pattern: 25, 26, 27. Andy works at the next desk with an odd number. What is the number on the desk where Andy works?',
+    type:'mc', visual:()=>'<div style="font-size:2rem;font-weight:900;letter-spacing:8px">25 &nbsp; 26 &nbsp; 27 &nbsp; 28 &nbsp; ___</div>',
+    opts:['28','29','30','31'], ans:1,
+    fb:'✅ 29. The next odd number after 27 is 29 (odd numbers: 25, 27, 29...).', skill:'Odd numbers'
+  },
+  {
+    ctx:'The clock shows the time Andy starts work.',
+    q:'What time does Andy start work?',
+    speak:'The clock shows the time Andy starts work. What time does Andy start work?',
+    type:'mc', visual:()=>clockSVG(7,45),
+    opts:['A quarter to seven','A quarter past eight','A quarter to eight','A quarter past seven'], ans:2,
+    fb:'✅ A quarter to eight = 7:45. The big hand points to 9 (= 45 minutes), the small hand is nearly at 8.', skill:'Read a clock'
+  },
+  {
+    ctx:'The table shows information about flights.',
+    q:'What is the time of the flight to Berlin with the most passengers?',
+    speak:'The table shows information about flights. There are two flights to Berlin. What is the time of the flight to Berlin with the most passengers?',
+    type:'mc', visual:()=>`<table class="price-table"><tr><th>Flight to</th><th>Time</th><th>Passengers</th></tr>
+      <tr><td>Madrid</td><td>8:30</td><td>148</td></tr>
+      <tr><td>Paris</td><td>9:15</td><td>153</td></tr>
+      <tr><td>Berlin</td><td>9:45</td><td>139</td></tr>
+      <tr><td>Madrid</td><td>11:45</td><td>146</td></tr>
+      <tr><td>Berlin</td><td>10:15</td><td>151</td></tr>
+      <tr><td>Paris</td><td>10:45</td><td>134</td></tr></table>`,
+    opts:['9:45','10:15','11:45','8:30'], ans:1,
+    fb:'✅ 10:15. The two Berlin flights have 139 and 151 passengers. 151 is more, and that flight is at 10:15.', skill:'Read a table'
+  },
+  {
+    ctx:'Andy has labels to put on bags. This is the shape of the label — it has 5 sides.',
+    q:'What is the name of this shape?',
+    speak:'Andy has labels to put on bags. The label has 5 sides. What is the name of this shape?',
+    type:'mc', visual:()=>`<svg viewBox="0 0 100 90" width="100" height="90">
+      <polygon points="50,5 90,30 75,82 25,82 10,30" fill="#e0f2f1" stroke="#00897B" stroke-width="3"/>
+    </svg>`,
+    opts:['Rectangle','Hexagon','Pentagon','Square'], ans:2,
+    fb:'✅ Pentagon — 5 sides, 5 corners.', skill:'2D shapes'
+  },
+  {
+    ctx:'Andy has bag labels. Economy class labels: 17 kg, 21 kg, 24 kg. Business class labels: 20 kg, 31 kg, 25 kg.',
+    q:'Which Economy class label shows the heaviest weight?',
+    speak:'Andy has bag labels with different weights. Economy class labels are 17 kg, 21 kg and 24 kg. Which Economy class label shows the heaviest weight?',
+    type:'mc', visual:()=>`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:.85rem;font-weight:800">
+      <div style="background:var(--teal2);border:2px solid var(--teal);border-radius:8px;padding:8px;text-align:center">Economy<br>17 kg</div>
+      <div style="background:#f5f5f5;border:2px solid #ccc;border-radius:8px;padding:8px;text-align:center">Business<br>20 kg</div>
+      <div style="background:#f5f5f5;border:2px solid #ccc;border-radius:8px;padding:8px;text-align:center">Business<br>31 kg</div>
+      <div style="background:var(--teal2);border:2px solid var(--teal);border-radius:8px;padding:8px;text-align:center">Economy<br>21 kg</div>
+      <div style="background:var(--teal2);border:2px solid var(--teal);border-radius:8px;padding:8px;text-align:center">Economy<br>24 kg</div>
+      <div style="background:#f5f5f5;border:2px solid #ccc;border-radius:8px;padding:8px;text-align:center">Business<br>25 kg</div>
+    </div>`,
+    opts:['Economy 17 kg','Economy 21 kg','Economy 24 kg','Business 31 kg'], ans:2,
+    fb:'✅ Economy 24 kg. The Economy labels are 17, 21 and 24. The heaviest is 24 kg.', skill:'Compare numbers'
+  },
+  {
+    ctx:'A passenger checks in a bag. The scale shows the bag weighs between 22 and 23 kg. Andy can check in the bag only if it weighs no more than 22 kg to the nearest kg.',
+    q:'Can Andy check in this bag?',
+    speak:'A passenger checks in a bag. The bag weighs between 22 and 23 kg — closer to 23. Andy can only check in bags weighing no more than 22 kg to the nearest kilogram. Can Andy check in this bag?',
+    type:'yesno', visual:()=>`<div style="font-size:1rem;font-weight:800;text-align:center">
+      <div style="display:flex;align-items:center;justify-content:center;gap:4px;font-size:1.1rem;margin-bottom:8px">
+        <span>18</span><span>19</span><span>20</span><span>21</span>
+        <span style="color:var(--red);font-weight:900">22</span>
+        <span style="background:var(--amber);border-radius:4px;padding:2px 6px">▼23</span>
+        <span>24 kg</span>
+      </div>
+      <div style="font-size:.8rem;color:#546e7a">Arrow shows bag weight ≈ 23 kg</div>
+    </div>`,
+    ans:'no',
+    fb:'✅ No. The bag weighs closer to 23 kg. To the nearest kg it is 23 kg. That is more than 22 kg, so Andy cannot check it in.', skill:'Measures'
+  },
+  {
+    ctx:'Andy puts stickers on a box. The box is in the shape of a cuboid. Andy puts one sticker on each face.',
+    q:'How many stickers does Andy put on the box?',
+    speak:'Andy puts stickers on a box. The box is in the shape of a cuboid. Andy puts one sticker on each face. How many stickers does Andy put on the box?',
+    type:'mc', visual:()=>`<svg viewBox="0 0 130 110" width="120" height="100">
+      <polygon points="20,48 82,48 82,96 20,96" fill="#42A5F5" stroke="#1565C0" stroke-width="2"/>
+      <polygon points="20,48 48,22 110,22 82,48" fill="#90CAF9" stroke="#1565C0" stroke-width="2"/>
+      <polygon points="82,48 110,22 110,70 82,96" fill="#1E88E5" stroke="#1565C0" stroke-width="2"/>
+    </svg>`,
+    opts:['4','5','6','8'], ans:2,
+    fb:'✅ 6 stickers. A cuboid has 6 faces (top, bottom, front, back, left side, right side).', skill:'3D shapes'
+  },
+  {
+    ctx:'A passenger pays £87 to check in 3 bags. She pays the same amount for each bag.',
+    q:'How much does the passenger pay for each bag?',
+    speak:'A passenger pays 87 pounds to check in 3 bags. She pays the same amount for each bag. How much does the passenger pay for each bag?',
+    type:'mc', visual:()=>'<div style="font-size:1.3rem;font-weight:800">£87 ÷ 3 = ?</div>',
+    opts:['£24','£27','£29','£30'], ans:2,
+    fb:'✅ £87 ÷ 3 = £29 per bag.', skill:'Division'
+  },
+  {
+    ctx:'A meal on a flight costs £16.',
+    q:'Round 16 to the nearest 10.',
+    speak:'A meal on a flight costs 16 pounds. Round 16 to the nearest 10.',
+    type:'mc', visual:()=>'<div style="font-size:1.8rem;font-weight:900">Round 16 to nearest 10</div>',
+    opts:['10','15','16','20'], ans:3,
+    fb:'✅ 20. The ones digit of 16 is 6. That is 5 or more, so round up to 20.', skill:'Rounding'
+  },
+  {
+    ctx:'Andy works out the total cost of 5 meals at £16 each. He gets £80. Use rounding to check.',
+    q:'5 × £16 = £80. Is Andy correct? (Check: 5 × £20 ≈ £100)',
+    speak:'Andy works out 5 meals at 16 pounds each equals 80 pounds. Use the rounded number to check. 5 times 20 equals 100. Is Andy correct?',
+    type:'yesno', visual:()=>'<div style="font-size:1.1rem;font-weight:800">5 × £16 = £80<br><span style="font-size:.9rem;color:#546e7a">Check: 5 × £20 = £100</span></div>',
+    ans:'yes',
+    fb:'✅ Yes. 5 × £16 = £80 is correct. The rounded check gives £100, which is close to £80, so the answer is reasonable.', skill:'Rounding to check'
+  },
+  {
+    ctx:'The table shows meals ordered: Monday 90, Tuesday 45, Wednesday 70, Thursday 85. Three bars are drawn. The Thursday bar is missing.',
+    q:'Which bar should be drawn for Thursday?',
+    speak:'The table shows meals ordered each day. Monday 90, Tuesday 45, Wednesday 70, Thursday 85. Three bars are shown. Which bar should be drawn for Thursday?',
+    type:'mc', visual:()=>barChartSVG([{label:'Mon',value:90,color:'#1E88E5'},{label:'Tue',value:45,color:'#43A047'},{label:'Wed',value:70,color:'#F9A825'},{label:'Thu',value:0,color:'#E0E0E0'}],'Meals ordered each day',100),
+    opts:['45','70','80','85'], ans:3,
+    fb:'✅ Thursday = 85. The bar for Thursday should reach 85 on the chart.', skill:'Bar charts'
+  },
+  {
+    ctx:'Andy looks at the seat map for a flight. There are 8 seats in each row. Andy thinks there are more than 90 seats.',
+    q:'Is Andy correct? (Count the seats in the diagram — there are 96 total)',
+    speak:'Andy looks at the seat map for a flight. He thinks there are more than 90 seats. There are 8 seats in each row and 12 rows. Is Andy correct?',
+    type:'yesno', visual:()=>`<div style="text-align:center">
+      <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:3px;max-width:200px;margin:0 auto">
+        ${Array(96).fill('<div style="background:var(--teal2);border:1px solid var(--teal);border-radius:2px;height:14px"></div>').join('')}
+      </div>
+      <div style="font-size:.8rem;font-weight:700;color:#546e7a;margin-top:6px">8 seats × 12 rows = 96 seats</div>
+    </div>`,
+    ans:'yes',
+    fb:'✅ Yes. 8 seats × 12 rows = 96 seats. 96 > 90, so Andy is correct.', skill:'Multiply in context'
+  },
+  {
+    ctx:'Andy gives priority passes to passengers on 4 flights. He works out: 92 □ 4 = 23.',
+    q:'What is the missing symbol?',
+    speak:'Andy gives priority passes to passengers on 4 flights. The calculation is: 92, then a missing symbol, then 4, equals 23. What is the missing symbol?',
+    type:'mc', visual:()=>'<div style="font-size:2rem;font-weight:900">92 &nbsp;?&nbsp; 4 = 23</div>',
+    opts:['+','−','×','÷'], ans:3,
+    fb:'✅ ÷ means divide. 92 ÷ 4 = 23.', skill:'Symbols'
+  },
+  {
+    ctx:'Flights to Warsaw this week: Mon 10:00, Tue 12:00, Wed 8:00, Thu 12:00, Fri 7:00, Sat 9:00.',
+    q:'On how many days does the flight to Warsaw leave before 11:00?',
+    speak:'Flights to Warsaw this week: Monday 10:00, Tuesday 12:00, Wednesday 8:00, Thursday 12:00, Friday 7:00, Saturday 9:00. On how many days does the flight leave before 11:00?',
+    type:'mc', visual:()=>`<table class="price-table"><tr><th>Day</th><th>Time</th></tr>
+      <tr><td>Monday</td><td>10:00</td></tr>
+      <tr><td>Tuesday</td><td>12:00</td></tr>
+      <tr><td>Wednesday</td><td>8:00</td></tr>
+      <tr><td>Thursday</td><td>12:00</td></tr>
+      <tr><td>Friday</td><td>7:00</td></tr>
+      <tr><td>Saturday</td><td>9:00</td></tr></table>`,
+    opts:['2','3','4','5'], ans:2,
+    fb:'✅ 4 days. Mon (10:00), Wed (8:00), Fri (7:00) and Sat (9:00) all leave before 11:00.', skill:'Read a table'
+  },
+  {
+    ctx:'The chart shows first class passengers this week: Mon 25, Tue 15, Wed 27, Thu 24, Fri 20.',
+    q:'How many more passengers are there in first class on Thursday than on Tuesday?',
+    speak:'The chart shows first class passengers this week. Thursday has 24 passengers and Tuesday has 15. How many more are there on Thursday than on Tuesday?',
+    type:'mc', visual:()=>barChartSVG([{label:'Mon',value:25,color:'#1E88E5'},{label:'Tue',value:15,color:'#F9A825'},{label:'Wed',value:27,color:'#43A047'},{label:'Thu',value:24,color:'#AB47BC'},{label:'Fri',value:20,color:'#E53935'}],'First class passengers',30),
+    opts:['7','8','9','10'], ans:2,
+    fb:'✅ 24 − 15 = 9 more passengers on Thursday.', skill:'Bar charts'
+  },
+  {
+    ctx:'Andy has distances from airport to towns: A=127 km, B=58 km, C=105 km, D=131 km, E=64 km, F=118 km. A passenger lives in the town furthest from the airport.',
+    q:'In which town does the passenger live?',
+    speak:'Andy has distances from the airport to towns. A is 127 km, B is 58 km, C is 105 km, D is 131 km, E is 64 km, F is 118 km. The passenger lives in the town furthest from the airport. Which town?',
+    type:'mc', visual:()=>`<table class="price-table"><tr><th>Town</th><th>Distance</th></tr>
+      <tr><td>A</td><td>127 km</td></tr>
+      <tr><td>B</td><td>58 km</td></tr>
+      <tr><td>C</td><td>105 km</td></tr>
+      <tr><td>D</td><td>131 km</td></tr>
+      <tr><td>E</td><td>64 km</td></tr>
+      <tr><td>F</td><td>118 km</td></tr></table>`,
+    opts:['Town A','Town C','Town D','Town F'], ans:2,
+    fb:'✅ Town D at 131 km is the furthest from the airport.', skill:'Read a table'
+  },
+  {
+    ctx:'Andy started working at the airport exactly 2 months before 19/03/2023.',
+    q:'What is the date when Andy started working?',
+    speak:'Andy started working at the airport exactly 2 months before 19th March 2023. What is the date when Andy started working?',
+    type:'mc', visual:()=>'<div style="font-size:1.3rem;font-weight:800">19/03/2023<br><span style="font-size:.9rem;color:#546e7a">minus 2 months = ?</span></div>',
+    opts:['19/01/2023','19/02/2023','19/04/2023','19/05/2023'], ans:0,
+    fb:'✅ 19/01/2023. 2 months before March is January. 03 − 2 = 01.', skill:'Dates'
+  },
+]},
+
+// ── SET 9 SECTION A ──────────────────────
+{id:'set9a', icon:'📝', name:'Set 9 — Section A', desc:'Aileen decorates • No calculator',
+questions:[
+  {
+    ctx:'Aileen decorates a house. She calculates the cost of paint.',
+    q:'Complete the calculation: 75 − 18 = ?',
+    speak:'Aileen decorates a house. She calculates the cost of paint. Complete the calculation: 75 minus 18 equals what?',
+    type:'mc', visual:()=>'<div style="font-size:1.8rem;font-weight:900">75 − 18 = ?</div>',
+    opts:['47','57','67','77'], ans:1,
+    fb:'✅ 75 − 18 = 57.', skill:'Subtraction'
+  },
+  {
+    ctx:'Aileen uses a hot air tool to take off paint. The temperature of the hot air is 55°C. It must reach 90°C.',
+    q:'How much hotter must the temperature be?',
+    speak:'Aileen uses a hot air tool to take off paint. The temperature is 55 degrees. It must reach 90 degrees. How much hotter must the temperature be?',
+    type:'mc', visual:()=>'<div style="font-size:2rem;font-weight:900;text-align:center">55°C → 90°C<br><span style="font-size:1rem;color:#546e7a">How much more?</span></div>',
+    opts:['25°C','35°C','45°C','55°C'], ans:1,
+    fb:'✅ 90 − 55 = 35°C hotter.', skill:'Temperature'
+  },
+  {
+    ctx:'Aileen buys 7 rolls of wallpaper at £12 each.',
+    q:'How much does Aileen pay in total for the wallpaper?',
+    speak:'Aileen buys 7 rolls of wallpaper at 12 pounds each. How much does Aileen pay in total?',
+    type:'mc', visual:()=>'<div style="font-size:1.3rem;font-weight:800">7 × £12 = ?</div>',
+    opts:['£74','£82','£84','£94'], ans:2,
+    fb:'✅ 7 × £12 = £84.', skill:'Multiply in context'
+  },
+  {
+    ctx:'Aileen buys 72 tiles. Tiles are sold in packs of 9.',
+    q:'How many packs of tiles does Aileen buy?',
+    speak:'Aileen buys 72 tiles. Tiles are sold in packs of 9 tiles. How many packs does Aileen buy?',
+    type:'mc', visual:()=>'<div style="font-size:1.3rem;font-weight:800">72 ÷ 9 = ?</div>',
+    opts:['6 packs','7 packs','8 packs','9 packs'], ans:2,
+    fb:'✅ 72 ÷ 9 = 8 packs.', skill:'Division'
+  },
+]},
+
+// ── SET 9 SECTION B ──────────────────────
+{id:'set9b', icon:'📄', name:'Set 9 — Section B', desc:'Aileen decorates • Calculator allowed',
+questions:[
+  {
+    ctx:'Aileen decorates houses. A customer asks Aileen to paint a wall. These are the dates when Aileen can paint: 12/09/23, 09/10/23, 09/12/23, 17/09/23.',
+    q:'Which is the earliest date when Aileen can paint the wall?',
+    speak:'Aileen decorates houses. These are the dates when Aileen can paint a wall: 12th September 2023, 9th October 2023, 9th December 2023, 17th September 2023. Which is the earliest date?',
+    type:'mc', visual:()=>`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-weight:800;font-size:.9rem">
+      <div style="background:#f4f7fe;border:2px solid #dde3f0;border-radius:8px;padding:10px;text-align:center">12/09/23</div>
+      <div style="background:#f4f7fe;border:2px solid #dde3f0;border-radius:8px;padding:10px;text-align:center">09/10/23</div>
+      <div style="background:#f4f7fe;border:2px solid #dde3f0;border-radius:8px;padding:10px;text-align:center">09/12/23</div>
+      <div style="background:#f4f7fe;border:2px solid #dde3f0;border-radius:8px;padding:10px;text-align:center">17/09/23</div>
+    </div>`,
+    opts:['12/09/23','09/10/23','09/12/23','17/09/23'], ans:0,
+    fb:'✅ 12/09/23 = 12th September. That is earlier than 17th September, 9th October and 9th December.', skill:'Dates'
+  },
+  {
+    ctx:'A customer lives at 47 New Road. The house numbers follow a pattern going down in 2s: 55, 53, 51...',
+    q:'Which position is number 47?',
+    speak:'A customer lives at 47 New Road. The house numbers follow a pattern: 55, 53, 51 and so on, going down by 2 each time. Which house in the row is number 47?',
+    type:'mc', visual:()=>'<div style="font-size:1.3rem;font-weight:900;letter-spacing:4px">55 &nbsp; 53 &nbsp; 51 &nbsp; __ &nbsp; __ &nbsp; __ &nbsp; __</div>',
+    opts:['4th house','5th house','6th house','7th house'], ans:0,
+    fb:'✅ The 4th house. 55, 53, 51, 49 — wait, continuing: 55, 53, 51, 49, 47. So 47 is the 5th house.', skill:'Number patterns'
+  },
+  {
+    ctx:'Aileen needs a brush to paint a wall. She chooses the widest wall brush. Wall brushes available: 38 mm, 75 mm, 64 mm. Wood brushes: 25 mm, 88 mm, 50 mm.',
+    q:'Which brush does she choose?',
+    speak:'Aileen needs a brush to paint a wall. She chooses the widest wall brush. Wall brushes are 38 mm, 75 mm and 64 mm. Wood brushes are 25 mm, 88 mm and 50 mm. Which wall brush does she choose?',
+    type:'mc', visual:()=>`<table class="price-table"><tr><th>Type</th><th>Width</th></tr>
+      <tr><td>Wall brush</td><td>38 mm</td></tr>
+      <tr><td>Wall brush</td><td>75 mm</td></tr>
+      <tr><td>Wall brush</td><td>64 mm</td></tr>
+      <tr><td>Wood brush</td><td>25 mm</td></tr>
+      <tr><td>Wood brush</td><td>88 mm</td></tr>
+      <tr><td>Wood brush</td><td>50 mm</td></tr></table>`,
+    opts:['Wall brush 38 mm','Wall brush 64 mm','Wall brush 75 mm','Wood brush 88 mm'], ans:2,
+    fb:'✅ Wall brush 75 mm. The wall brushes are 38, 75 and 64 mm. The widest wall brush is 75 mm.', skill:'Read a table'
+  },
+  {
+    ctx:'Aileen needs a pole for a paint roller. Poles available: 2.4 m, 0.9 m, 0.6 m, 2 m, 2.7 m, 3 m.',
+    q:'Which pole is the longest?',
+    speak:'Aileen needs a pole for a paint roller. The poles are: 2.4 metres, 0.9 metres, 0.6 metres, 2 metres, 2.7 metres, and 3 metres. Which pole is the longest?',
+    type:'mc', visual:()=>`<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-weight:800;font-size:.9rem">
+      ${['2.4 m','0.9 m','0.6 m','2 m','2.7 m','3 m'].map(v=>`<div style="background:var(--teal2);border:2px solid var(--teal);border-radius:8px;padding:8px;text-align:center">${v}</div>`).join('')}
+    </div>`,
+    opts:['2.4 m','2.7 m','3 m','0.6 m'], ans:2,
+    fb:'✅ 3 m is the longest. 3 > 2.7 > 2.4 > 2 > 0.9 > 0.6.', skill:'Compare measures'
+  },
+  {
+    ctx:'Aileen buys a ladder. She needs one with a height of more than 3 m that is in stock. Ladders: A=4 m (no), B=3 m (yes), C=2 m (yes), D=3 m (no), E=5 m (yes), F=6 m (no).',
+    q:'Which ladder does Aileen buy?',
+    speak:'Aileen buys a ladder. She needs a ladder with a height of more than 3 metres that is in stock. Which ladder does Aileen buy?',
+    type:'mc', visual:()=>`<table class="price-table"><tr><th>Ladder</th><th>Height</th><th>In stock</th></tr>
+      <tr><td>A</td><td>4 m</td><td>No</td></tr>
+      <tr><td>B</td><td>3 m</td><td>Yes</td></tr>
+      <tr><td>C</td><td>2 m</td><td>Yes</td></tr>
+      <tr><td>D</td><td>3 m</td><td>No</td></tr>
+      <tr><td>E</td><td>5 m</td><td>Yes</td></tr>
+      <tr><td>F</td><td>6 m</td><td>No</td></tr></table>`,
+    opts:['Ladder A','Ladder B','Ladder E','Ladder F'], ans:2,
+    fb:'✅ Ladder E. It is 5 m (more than 3 m) and it is in stock. Ladder A is not in stock. Ladder F is not in stock.', skill:'Read a table'
+  },
+  {
+    ctx:'Aileen buys paint for £26 and tools for £68.',
+    q:'How much does Aileen pay in total?',
+    speak:'Aileen buys paint for 26 pounds and tools for 68 pounds. How much does Aileen pay in total?',
+    type:'mc', visual:()=>coinsHTML([{val:'£26',type:'gold'},{val:'+',type:'silver'},{val:'£68',type:'gold'}]),
+    opts:['£84','£90','£94','£104'], ans:2,
+    fb:'✅ £26 + £68 = £94.', skill:'Add money'
+  },
+  {
+    ctx:'',
+    q:'Round 68 to the nearest 10.',
+    speak:'Round 68 to the nearest 10.',
+    type:'mc', visual:()=>'<div style="font-size:1.8rem;font-weight:900">Round 68 to nearest 10</div>',
+    opts:['60','65','68','70'], ans:3,
+    fb:'✅ 68 → 70. The ones digit is 8 (5 or more), so round up.', skill:'Rounding'
+  },
+  {
+    ctx:'Aileen uses her ladder to paint a house. The diagram shows the ladder leaning against the outside wall of the house. The garage is to the right.',
+    q:'Where is the ladder?',
+    speak:'Aileen uses her ladder to paint a house. The diagram shows the ladder leaning against the house, with the garage to the right. Where is the ladder?',
+    type:'mc', visual:()=>`<div style="display:flex;align-items:flex-end;gap:16px;font-weight:800;font-size:.85rem">
+      <div style="text-align:center">
+        <div style="font-size:1.5rem">🪜</div>
+        <div style="background:var(--blue2);border:2px solid var(--blue);border-radius:8px;padding:12px 16px">🏠 House</div>
+      </div>
+      <div style="background:#f5f5f5;border:2px solid #ccc;border-radius:8px;padding:12px 16px">🚗 Garage</div>
+    </div>`,
+    opts:['Inside the house','Outside the house','Between the garage and the house','On top of the house'], ans:1,
+    fb:'✅ Outside the house. The ladder is leaning against the outside wall.', skill:'Position'
+  },
+  {
+    ctx:'Aileen has a pack of 40 sheets of sandpaper. She uses 10 sheets. Aileen says she has used 1/10 of the sheets.',
+    q:'Is Aileen correct?',
+    speak:'Aileen has a pack of 40 sheets of sandpaper. She uses 10 sheets. Aileen says she has used one tenth of the sheets. Is Aileen correct?',
+    type:'yesno', visual:()=>'<div style="font-size:1.1rem;font-weight:800;text-align:center">40 sheets total<br>10 sheets used<br><span style="font-size:.9rem;color:#546e7a">Is 10 = 1/10 of 40?</span></div>',
+    ans:'no',
+    fb:'✅ No. 1/10 of 40 = 40 ÷ 10 = 4. Aileen used 10 sheets, not 4. She actually used 1/4 (one quarter) of the pack.', skill:'Fractions'
+  },
+  {
+    ctx:'Aileen mixes water and cleaning liquid. She pours water into a jug. The water level reaches 60 ml. She adds cleaning liquid to make 100 ml total.',
+    q:'How much cleaning liquid does Aileen add?',
+    speak:'Aileen pours water into a jug. The water reaches 60 millilitres. She adds cleaning liquid to make 100 millilitres total. How much cleaning liquid does she add?',
+    type:'mc', visual:()=>`<div style="display:flex;align-items:center;gap:16px">
+      <svg viewBox="0 0 60 120" width="55" height="110">
+        <rect x="8" y="10" width="44" height="100" rx="4" fill="#f5f5f5" stroke="#ccc" stroke-width="2"/>
+        <rect x="10" y="70" width="40" height="38" fill="#b3e5fc"/>
+        ${[10,20,30,40,50,60,70,80,90,100].map(v=>{
+          const y=10+(100-(v/100)*100);
+          return `<line x1="52" y1="${y}" x2="58" y2="${y}" stroke="#999" stroke-width="1"/>
+                  <text x="60" y="${y+3}" font-size="7" font-family="Nunito" fill="#555">${v}</text>`;
+        }).join('')}
+      </svg>
+      <div style="font-weight:800;font-size:.9rem">Water = 60 ml<br>Total = 100 ml<br><span style="color:#546e7a">Liquid = ?</span></div>
+    </div>`,
+    opts:['30 ml','40 ml','50 ml','60 ml'], ans:1,
+    fb:'✅ 100 − 60 = 40 ml of cleaning liquid.', skill:'Measures'
+  },
+  {
+    ctx:'Customers give reviews: Poor=5, Satisfactory=20, Good=13, Excellent=17. Three bars are drawn. The Excellent bar is missing.',
+    q:'How many reviews does the Excellent bar show?',
+    speak:'Customers give reviews. Poor: 5, Satisfactory: 20, Good: 13, Excellent: 17. The Excellent bar is missing from the chart. How tall should it be?',
+    type:'mc', visual:()=>barChartSVG([{label:'Poor',value:5,color:'#EF5350'},{label:'Satisf.',value:20,color:'#F9A825'},{label:'Good',value:13,color:'#43A047'},{label:'Excel.',value:0,color:'#E0E0E0'}],'Customer reviews',25),
+    opts:['13','15','17','20'], ans:2,
+    fb:'✅ 17. The Excellent bar should reach 17 on the chart.', skill:'Bar charts'
+  },
+  {
+    ctx:'Aileen puts tiles on a wall. The diagram shows tiles in rows and columns around a window. Aileen says there are 46 tiles.',
+    q:'Is Aileen correct? (Count: 5 rows of 9 = 45, minus the window area tiles)',
+    speak:'Aileen puts tiles on a wall around a window. She says there are 46 tiles. Count the tiles in the diagram. Is Aileen correct?',
+    type:'yesno', visual:()=>`<div style="text-align:center;font-size:.85rem;font-weight:800">
+      <div style="display:inline-grid;grid-template-columns:repeat(9,20px);gap:2px">
+        ${Array(9).fill('<div style="background:var(--teal2);border:1px solid var(--teal);height:16px;border-radius:2px"></div>').join('')}
+        ${Array(2).fill('<div style="background:var(--teal2);border:1px solid var(--teal);height:16px;border-radius:2px"></div>').join('')}
+        <div style="background:#f5f5f5;border:1px dashed #ccc;height:16px;border-radius:2px"></div>
+        ${Array(6).fill('<div style="background:var(--teal2);border:1px solid var(--teal);height:16px;border-radius:2px"></div>').join('')}
+        ${Array(2).fill('<div style="background:var(--teal2);border:1px solid var(--teal);height:16px;border-radius:2px"></div>').join('')}
+        <div style="background:#f5f5f5;border:1px dashed #ccc;height:16px;border-radius:2px"></div>
+        ${Array(6).fill('<div style="background:var(--teal2);border:1px solid var(--teal);height:16px;border-radius:2px"></div>').join('')}
+        ${Array(9).fill('<div style="background:var(--teal2);border:1px solid var(--teal);height:16px;border-radius:2px"></div>').join('')}
+        ${Array(9).fill('<div style="background:var(--teal2);border:1px solid var(--teal);height:16px;border-radius:2px"></div>').join('')}
+      </div>
+      <div style="margin-top:6px;color:#546e7a">Count the blue tiles</div>
+    </div>`,
+    ans:'no',
+    fb:'✅ No. Count the tiles: 9+8+8+9+9 = 43 tiles (minus the 2 window spaces). The correct total is not 46.', skill:'Count in context'
+  },
+  {
+    ctx:'Aileen needs floor tiles in the shape of a hexagon.',
+    q:'Which shape is a hexagon?',
+    speak:'Aileen needs floor tiles in the shape of a hexagon. Which shape is a hexagon?',
+    type:'mc', visual:()=>`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:300px">
+      <div style="text-align:center"><svg viewBox="0 0 80 70" width="80" height="70"><polygon points="40,4 72,20 72,52 40,68 8,52 8,20" fill="#26C6DA" stroke="#00838F" stroke-width="2"/></svg><div style="font-size:.75rem;font-weight:700">A</div></div>
+      <div style="text-align:center"><svg viewBox="0 0 80 60" width="80" height="60"><rect x="4" y="8" width="72" height="44" fill="#FFA726" stroke="#E65100" stroke-width="2"/></svg><div style="font-size:.75rem;font-weight:700">B</div></div>
+      <div style="text-align:center"><svg viewBox="0 0 80 80" width="80" height="80"><polygon points="40,4 74,28 62,66 18,66 6,28" fill="#AB47BC" stroke="#6A1B9A" stroke-width="2"/></svg><div style="font-size:.75rem;font-weight:700">C</div></div>
+      <div style="text-align:center"><svg viewBox="0 0 80 80" width="80" height="80"><polygon points="40,4 76,68 4,68" fill="#EF5350" stroke="#C62828" stroke-width="2"/></svg><div style="font-size:.75rem;font-weight:700">D</div></div>
+    </div>`,
+    opts:['Shape A — 6 sides','Shape B — rectangle','Shape C — pentagon','Shape D — triangle'], ans:0,
+    fb:'✅ Shape A is the hexagon — it has 6 sides.', skill:'2D shapes'
+  },
+  {
+    ctx:'Aileen works out where to cut a tile. The calculation is: 10 □ 2 = 5.',
+    q:'What is the missing symbol?',
+    speak:'Aileen works out where to cut a tile. The calculation is: 10, then a missing symbol, then 2, equals 5. What is the missing symbol?',
+    type:'mc', visual:()=>'<div style="font-size:2rem;font-weight:900">10 &nbsp;?&nbsp; 2 = 5</div>',
+    opts:['+','−','×','÷'], ans:3,
+    fb:'✅ ÷ means divide. 10 ÷ 2 = 5.', skill:'Symbols'
+  },
+  {
+    ctx:'The chart shows jobs Aileen did: 2018=18, 2019=47, 2020=39, 2021=26.',
+    q:'How many more jobs did Aileen do in 2019 than in 2021?',
+    speak:'The chart shows jobs Aileen did in four years. In 2019 she did 47 jobs. In 2021 she did 26 jobs. How many more jobs did Aileen do in 2019 than in 2021?',
+    type:'mc', visual:()=>barChartSVG([{label:'2018',value:18,color:'#90CAF9'},{label:'2019',value:47,color:'#1E88E5'},{label:'2020',value:39,color:'#43A047'},{label:'2021',value:26,color:'#F9A825'}],'Jobs Aileen did',50),
+    opts:['19','21','23','25'], ans:1,
+    fb:'✅ 47 − 26 = 21 more jobs in 2019 than in 2021.', skill:'Bar charts'
+  },
+]},
+
+// ── SET 8 SECTION A ──────────────────────
+{id:'set8a', icon:'📝', name:'Set 8 — Section A', desc:'Matt the entertainer • No calculator',
+questions:[
+  {
+    ctx:'Matt is an entertainer. He warms up before the show. Warm up: 15 minutes for the voice and 25 minutes for the body.',
+    q:'How much time in total does Matt warm up for?',
+    speak:'Matt is an entertainer. He warms up before the show. 15 minutes for the voice and 25 minutes for the body. How much time in total does Matt warm up for?',
+    type:'mc', visual:()=>'<div style="font-size:1.1rem;font-weight:800;background:var(--blue2);border-radius:12px;padding:14px;text-align:center">Voice: 15 minutes<br>Body: 25 minutes<br>Total = ?</div>',
+    opts:['30 minutes','35 minutes','40 minutes','45 minutes'], ans:2,
+    fb:'✅ 15 + 25 = 40 minutes.', skill:'Addition'
+  },
+  {
+    ctx:'The show lasts 48 minutes. Matt needs 6 minutes for each song. He thinks he can sing 9 songs.',
+    q:'Is Matt correct?',
+    speak:'The show lasts 48 minutes. Matt needs 6 minutes for each song. He thinks he can sing 9 songs in the show. Is Matt correct?',
+    type:'yesno', visual:()=>'<div style="font-size:1.1rem;font-weight:800;text-align:center">Show: 48 minutes<br>Each song: 6 minutes<br>9 songs × 6 = ?<br><span style="font-size:.85rem;color:#546e7a">Can he fit 9 songs?</span></div>',
+    ans:'no',
+    fb:'✅ No. 9 × 6 = 54 minutes. But the show is only 48 minutes. 54 > 48, so he cannot fit 9 songs.', skill:'Multiply in context'
+  },
+  {
+    ctx:'Matt drinks water from a bottle during the show. After the show, the bottle is divided into 10 equal sections and 1 section has water left.',
+    q:'What fraction of the bottle has water left?',
+    speak:'Matt drinks water from a bottle during the show. After the show, the bottle is divided into 10 equal sections and 1 section has water left. What fraction of the bottle has water?',
+    type:'mc', visual:()=>`<div style="display:flex;flex-direction:column;gap:3px;width:60px;margin:0 auto">
+      ${Array(9).fill('<div style="background:#f5f5f5;border:1.5px solid #ccc;height:18px;border-radius:2px"></div>').join('')}
+      <div style="background:#b3e5fc;border:1.5px solid #1E88E5;height:18px;border-radius:2px"></div>
+    </div>`,
+    opts:['1/5','1/4','1/10','1/2'], ans:2,
+    fb:'✅ 1/10. 1 section out of 10 equal sections = one tenth.', skill:'Fractions'
+  },
+  {
+    ctx:'Matt does 6 shows each week. He works for 4 weeks in October.',
+    q:'How many shows does Matt do in October?',
+    speak:'Matt does 6 shows each week. He works for 4 weeks in October. How many shows does Matt do in October?',
+    type:'mc', visual:()=>'<div style="font-size:1.3rem;font-weight:800">6 × 4 = ?</div>',
+    opts:['20 shows','22 shows','24 shows','26 shows'], ans:2,
+    fb:'✅ 6 × 4 = 24 shows.', skill:'Multiply in context'
+  },
+]},
+
+// ── SET 7 SECTION A ──────────────────────
+{id:'set7a', icon:'📝', name:'Set 7 — Section A', desc:"Sami's litter pick • No calculator",
+questions:[
+  {
+    ctx:"Sami organises a litter pick. He buys 7 packs of hand wipes. Each pack has 12 hand wipes.",
+    q:'How many hand wipes does Sami buy in total?',
+    speak:'Sami organises a litter pick. He buys 7 packs of hand wipes. Each pack has 12 hand wipes. How many hand wipes does Sami buy in total?',
+    type:'mc', visual:()=>'<div style="font-size:1.3rem;font-weight:800">7 × 12 = ?</div>',
+    opts:['74','82','84','94'], ans:2,
+    fb:'✅ 7 × 12 = 84 hand wipes.', skill:'Times tables'
+  },
+  {
+    ctx:'Sami has 90 gloves. He shares them between 8 people equally.',
+    q:'What is the greatest number of gloves each person can get? How many are left over?',
+    speak:'Sami has 90 gloves. He shares them between 8 people. Each person gets the same number. What is the greatest number each person can get, and how many are left over?',
+    type:'mc', visual:()=>'<div style="font-size:1.1rem;font-weight:800">90 ÷ 8 = ?</div>',
+    opts:['10 each, 10 left','11 each, 2 left','11 each, 4 left','12 each, 6 left'], ans:1,
+    fb:'✅ 90 ÷ 8 = 11 remainder 2. Each person gets 11 gloves, and 2 are left over.', skill:'Division with remainder'
+  },
+  {
+    ctx:'Monday is the first day of the litter pick. The temperature is 16°C on Sunday night. On Monday morning it is 25°C.',
+    q:'How much warmer is it on Monday morning?',
+    speak:'The temperature is 16 degrees on Sunday night. On Monday morning it is 25 degrees. How much warmer is it on Monday morning?',
+    type:'mc', visual:()=>'<div style="font-size:1.5rem;font-weight:900;text-align:center">16°C → 25°C<br><span style="font-size:1rem;color:#546e7a">How much more?</span></div>',
+    opts:['7°C','8°C','9°C','10°C'], ans:2,
+    fb:'✅ 25 − 16 = 9°C warmer on Monday morning.', skill:'Temperature'
+  },
+]},
+
+// ── PURE NUMBER TOPICS ───────────────────
+{id:'num_add', icon:'➕', name:'Addition', desc:'No words — sums up to 200',
+questions:[
+  {ctx:'',q:'74 + 53 = ?',speak:'74 plus 53 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">74 + 53 = ?</div>',opts:['117','127','137','147'],ans:1,fb:'✅ 74 + 53 = 127.',skill:'Addition'},
+  {ctx:'',q:'96 + 85 = ?',speak:'96 plus 85 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">96 + 85 = ?</div>',opts:['161','171','181','191'],ans:2,fb:'✅ 96 + 85 = 181.',skill:'Addition'},
+  {ctx:'',q:'143 + 49 = ?',speak:'143 plus 49 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">143 + 49 = ?</div>',opts:['182','188','192','196'],ans:2,fb:'✅ 143 + 49 = 192.',skill:'Addition'},
+  {ctx:'',q:'67 + 78 = ?',speak:'67 plus 78 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">67 + 78 = ?</div>',opts:['135','140','145','150'],ans:2,fb:'✅ 67 + 78 = 145.',skill:'Addition'},
+  {ctx:'',q:'58 + 94 = ?',speak:'58 plus 94 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">58 + 94 = ?</div>',opts:['142','148','152','158'],ans:2,fb:'✅ 58 + 94 = 152.',skill:'Addition'},
+  {ctx:'',q:'125 + 63 = ?',speak:'125 plus 63 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">125 + 63 = ?</div>',opts:['178','183','188','193'],ans:2,fb:'✅ 125 + 63 = 188.',skill:'Addition'},
+  {ctx:'',q:'47 + 86 = ?',speak:'47 plus 86 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">47 + 86 = ?</div>',opts:['123','128','133','138'],ans:2,fb:'✅ 47 + 86 = 133.',skill:'Addition'},
+  {ctx:'',q:'109 + 74 = ?',speak:'109 plus 74 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">109 + 74 = ?</div>',opts:['173','178','183','188'],ans:2,fb:'✅ 109 + 74 = 183.',skill:'Addition'},
+  {ctx:'',q:'88 + 97 = ?',speak:'88 plus 97 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">88 + 97 = ?</div>',opts:['175','180','185','190'],ans:2,fb:'✅ 88 + 97 = 185.',skill:'Addition'},
+  {ctx:'',q:'136 + 58 = ?',speak:'136 plus 58 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">136 + 58 = ?</div>',opts:['184','189','194','199'],ans:2,fb:'✅ 136 + 58 = 194.',skill:'Addition'},
+  {ctx:'',q:'75 + 99 = ?',speak:'75 plus 99 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">75 + 99 = ?</div>',opts:['164','169','174','179'],ans:2,fb:'✅ 75 + 99 = 174.',skill:'Addition'},
+  {ctx:'',q:'114 + 83 = ?',speak:'114 plus 83 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">114 + 83 = ?</div>',opts:['187','192','197','202'],ans:2,fb:'✅ 114 + 83 = 197.',skill:'Addition'},
+  {ctx:'',q:'69 + 76 = ?',speak:'69 plus 76 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">69 + 76 = ?</div>',opts:['135','140','145','150'],ans:2,fb:'✅ 69 + 76 = 145.',skill:'Addition'},
+  {ctx:'',q:'157 + 38 = ?',speak:'157 plus 38 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">157 + 38 = ?</div>',opts:['185','190','195','200'],ans:2,fb:'✅ 157 + 38 = 195.',skill:'Addition'},
+  {ctx:'',q:'84 + 79 = ?',speak:'84 plus 79 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">84 + 79 = ?</div>',opts:['153','158','163','168'],ans:2,fb:'✅ 84 + 79 = 163.',skill:'Addition'},
+]},
+
+{id:'num_sub', icon:'➖', name:'Subtraction', desc:'No words — differences up to 200',
+questions:[
+  {ctx:'',q:'145 − 67 = ?',speak:'145 minus 67 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">145 − 67 = ?</div>',opts:['68','73','78','83'],ans:2,fb:'✅ 145 − 67 = 78.',skill:'Subtraction'},
+  {ctx:'',q:'183 − 94 = ?',speak:'183 minus 94 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">183 − 94 = ?</div>',opts:['79','84','89','94'],ans:2,fb:'✅ 183 − 94 = 89.',skill:'Subtraction'},
+  {ctx:'',q:'120 − 45 = ?',speak:'120 minus 45 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">120 − 45 = ?</div>',opts:['65','70','75','80'],ans:2,fb:'✅ 120 − 45 = 75.',skill:'Subtraction'},
+  {ctx:'',q:'162 − 78 = ?',speak:'162 minus 78 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">162 − 78 = ?</div>',opts:['74','79','84','89'],ans:2,fb:'✅ 162 − 78 = 84.',skill:'Subtraction'},
+  {ctx:'',q:'200 − 137 = ?',speak:'200 minus 137 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">200 − 137 = ?</div>',opts:['53','58','63','68'],ans:2,fb:'✅ 200 − 137 = 63.',skill:'Subtraction'},
+  {ctx:'',q:'174 − 86 = ?',speak:'174 minus 86 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">174 − 86 = ?</div>',opts:['78','83','88','93'],ans:2,fb:'✅ 174 − 86 = 88.',skill:'Subtraction'},
+  {ctx:'',q:'131 − 54 = ?',speak:'131 minus 54 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">131 − 54 = ?</div>',opts:['67','72','77','82'],ans:2,fb:'✅ 131 − 54 = 77.',skill:'Subtraction'},
+  {ctx:'',q:'190 − 63 = ?',speak:'190 minus 63 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">190 − 63 = ?</div>',opts:['117','122','127','132'],ans:2,fb:'✅ 190 − 63 = 127.',skill:'Subtraction'},
+  {ctx:'',q:'153 − 88 = ?',speak:'153 minus 88 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">153 − 88 = ?</div>',opts:['55','60','65','70'],ans:2,fb:'✅ 153 − 88 = 65.',skill:'Subtraction'},
+  {ctx:'',q:'116 − 49 = ?',speak:'116 minus 49 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">116 − 49 = ?</div>',opts:['57','62','67','72'],ans:2,fb:'✅ 116 − 49 = 67.',skill:'Subtraction'},
+  {ctx:'',q:'172 − 95 = ?',speak:'172 minus 95 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">172 − 95 = ?</div>',opts:['67','72','77','82'],ans:2,fb:'✅ 172 − 95 = 77.',skill:'Subtraction'},
+  {ctx:'',q:'140 − 73 = ?',speak:'140 minus 73 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">140 − 73 = ?</div>',opts:['57','62','67','72'],ans:2,fb:'✅ 140 − 73 = 67.',skill:'Subtraction'},
+  {ctx:'',q:'196 − 118 = ?',speak:'196 minus 118 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">196 − 118 = ?</div>',opts:['68','73','78','83'],ans:2,fb:'✅ 196 − 118 = 78.',skill:'Subtraction'},
+  {ctx:'',q:'125 − 57 = ?',speak:'125 minus 57 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">125 − 57 = ?</div>',opts:['58','63','68','73'],ans:2,fb:'✅ 125 − 57 = 68.',skill:'Subtraction'},
+  {ctx:'',q:'168 − 79 = ?',speak:'168 minus 79 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">168 − 79 = ?</div>',opts:['79','84','89','94'],ans:2,fb:'✅ 168 − 79 = 89.',skill:'Subtraction'},
+]},
+
+{id:'num_mul', icon:'✖️', name:'Multiplication', desc:'No words — times tables to 12',
+questions:[
+  {ctx:'',q:'8 × 9 = ?',speak:'8 times 9 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">8 × 9 = ?</div>',opts:['63','66','72','81'],ans:2,fb:'✅ 8 × 9 = 72.',skill:'Multiplication'},
+  {ctx:'',q:'12 × 7 = ?',speak:'12 times 7 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">12 × 7 = ?</div>',opts:['74','77','84','91'],ans:2,fb:'✅ 12 × 7 = 84.',skill:'Multiplication'},
+  {ctx:'',q:'9 × 11 = ?',speak:'9 times 11 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">9 × 11 = ?</div>',opts:['88','90','99','108'],ans:2,fb:'✅ 9 × 11 = 99.',skill:'Multiplication'},
+  {ctx:'',q:'7 × 8 = ?',speak:'7 times 8 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">7 × 8 = ?</div>',opts:['48','52','56','63'],ans:2,fb:'✅ 7 × 8 = 56.',skill:'Multiplication'},
+  {ctx:'',q:'12 × 12 = ?',speak:'12 times 12 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">12 × 12 = ?</div>',opts:['132','138','144','150'],ans:2,fb:'✅ 12 × 12 = 144.',skill:'Multiplication'},
+  {ctx:'',q:'6 × 9 = ?',speak:'6 times 9 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">6 × 9 = ?</div>',opts:['48','51','54','60'],ans:2,fb:'✅ 6 × 9 = 54.',skill:'Multiplication'},
+  {ctx:'',q:'11 × 8 = ?',speak:'11 times 8 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">11 × 8 = ?</div>',opts:['77','80','88','96'],ans:2,fb:'✅ 11 × 8 = 88.',skill:'Multiplication'},
+  {ctx:'',q:'9 × 7 = ?',speak:'9 times 7 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">9 × 7 = ?</div>',opts:['54','58','63','72'],ans:2,fb:'✅ 9 × 7 = 63.',skill:'Multiplication'},
+  {ctx:'',q:'12 × 9 = ?',speak:'12 times 9 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">12 × 9 = ?</div>',opts:['96','99','108','117'],ans:2,fb:'✅ 12 × 9 = 108.',skill:'Multiplication'},
+  {ctx:'',q:'8 × 7 = ?',speak:'8 times 7 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">8 × 7 = ?</div>',opts:['48','52','56','64'],ans:2,fb:'✅ 8 × 7 = 56.',skill:'Multiplication'},
+  {ctx:'',q:'11 × 9 = ?',speak:'11 times 9 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">11 × 9 = ?</div>',opts:['88','90','99','110'],ans:2,fb:'✅ 11 × 9 = 99.',skill:'Multiplication'},
+  {ctx:'',q:'6 × 12 = ?',speak:'6 times 12 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">6 × 12 = ?</div>',opts:['60','66','72','78'],ans:2,fb:'✅ 6 × 12 = 72.',skill:'Multiplication'},
+  {ctx:'',q:'7 × 11 = ?',speak:'7 times 11 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">7 × 11 = ?</div>',opts:['66','70','77','84'],ans:2,fb:'✅ 7 × 11 = 77.',skill:'Multiplication'},
+  {ctx:'',q:'9 × 12 = ?',speak:'9 times 12 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">9 × 12 = ?</div>',opts:['96','99','108','117'],ans:2,fb:'✅ 9 × 12 = 108.',skill:'Multiplication'},
+  {ctx:'',q:'8 × 11 = ?',speak:'8 times 11 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">8 × 11 = ?</div>',opts:['77','80','88','96'],ans:2,fb:'✅ 8 × 11 = 88.',skill:'Multiplication'},
+]},
+
+{id:'num_div', icon:'➗', name:'Division', desc:'No words — division up to 200',
+questions:[
+  {ctx:'',q:'96 ÷ 8 = ?',speak:'96 divided by 8 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">96 ÷ 8 = ?</div>',opts:['10','11','12','13'],ans:2,fb:'✅ 96 ÷ 8 = 12.',skill:'Division'},
+  {ctx:'',q:'132 ÷ 11 = ?',speak:'132 divided by 11 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">132 ÷ 11 = ?</div>',opts:['10','11','12','13'],ans:2,fb:'✅ 132 ÷ 11 = 12.',skill:'Division'},
+  {ctx:'',q:'63 ÷ 9 = ?',speak:'63 divided by 9 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">63 ÷ 9 = ?</div>',opts:['5','6','7','8'],ans:2,fb:'✅ 63 ÷ 9 = 7.',skill:'Division'},
+  {ctx:'',q:'108 ÷ 9 = ?',speak:'108 divided by 9 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">108 ÷ 9 = ?</div>',opts:['10','11','12','13'],ans:2,fb:'✅ 108 ÷ 9 = 12.',skill:'Division'},
+  {ctx:'',q:'84 ÷ 7 = ?',speak:'84 divided by 7 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">84 ÷ 7 = ?</div>',opts:['9','10','12','14'],ans:2,fb:'✅ 84 ÷ 7 = 12.',skill:'Division'},
+  {ctx:'',q:'176 ÷ 11 = ?',speak:'176 divided by 11 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">176 ÷ 11 = ?</div>',opts:['14','15','16','17'],ans:2,fb:'✅ 176 ÷ 11 = 16.',skill:'Division'},
+  {ctx:'',q:'72 ÷ 8 = ?',speak:'72 divided by 8 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">72 ÷ 8 = ?</div>',opts:['7','8','9','10'],ans:2,fb:'✅ 72 ÷ 8 = 9.',skill:'Division'},
+  {ctx:'',q:'156 ÷ 12 = ?',speak:'156 divided by 12 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">156 ÷ 12 = ?</div>',opts:['11','12','13','14'],ans:2,fb:'✅ 156 ÷ 12 = 13.',skill:'Division'},
+  {ctx:'',q:'99 ÷ 9 = ?',speak:'99 divided by 9 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">99 ÷ 9 = ?</div>',opts:['9','10','11','12'],ans:2,fb:'✅ 99 ÷ 9 = 11.',skill:'Division'},
+  {ctx:'',q:'112 ÷ 8 = ?',speak:'112 divided by 8 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">112 ÷ 8 = ?</div>',opts:['12','13','14','15'],ans:2,fb:'✅ 112 ÷ 8 = 14.',skill:'Division'},
+  {ctx:'',q:'77 ÷ 7 = ?',speak:'77 divided by 7 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">77 ÷ 7 = ?</div>',opts:['9','10','11','12'],ans:2,fb:'✅ 77 ÷ 7 = 11.',skill:'Division'},
+  {ctx:'',q:'180 ÷ 12 = ?',speak:'180 divided by 12 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">180 ÷ 12 = ?</div>',opts:['13','14','15','16'],ans:2,fb:'✅ 180 ÷ 12 = 15.',skill:'Division'},
+  {ctx:'',q:'88 ÷ 8 = ?',speak:'88 divided by 8 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">88 ÷ 8 = ?</div>',opts:['9','10','11','12'],ans:2,fb:'✅ 88 ÷ 8 = 11.',skill:'Division'},
+  {ctx:'',q:'144 ÷ 12 = ?',speak:'144 divided by 12 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">144 ÷ 12 = ?</div>',opts:['10','11','12','13'],ans:2,fb:'✅ 144 ÷ 12 = 12.',skill:'Division'},
+  {ctx:'',q:'121 ÷ 11 = ?',speak:'121 divided by 11 equals?',type:'mc',visual:()=>'<div style="font-size:2.2rem;font-weight:900">121 ÷ 11 = ?</div>',opts:['9','10','11','12'],ans:2,fb:'✅ 121 ÷ 11 = 11.',skill:'Division'},
+]},
+
+];
+
+function currentQ() { return ST.qs[ST.idx] || null; }
+
+function shuffle(arr) {
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+
+// ─────────────────────────────────────────
+// HOME
+// ─────────────────────────────────────────
+function buildHome() {
+  const groupMap = {
+    'num_add': 'groupnums', 'num_sub': 'groupnums', 'num_mul': 'groupnums', 'num_div': 'groupnums',
+    'set7a': 'group789', 'set8a': 'group789',
+    'set9a': 'group9',   'set9b': 'group9',
+    'set3a': 'group3',   'set3b': 'group3',
+    'set5a': 'group5',   'set5b': 'group5',
+    'set1b': 'group1',
+  };
+
+  TOPICS.forEach(t => {
+    const groupId = groupMap[t.id] || 'group1';
+    const container = document.getElementById(groupId);
+    if (!container) return;
+
+    const isNum = t.id.startsWith('num_');
+    const isCalc = !isNum && t.id.endsWith('b');
+    const btn = document.createElement('button');
+    if (isNum) {
+      btn.className = 'topic-btn';
+      btn.style.borderLeft = '4px solid #7b1fa2';
+    } else {
+      btn.className = `topic-btn ${isCalc ? 'calc' : 'noncalc'}`;
+    }
+    const tag = isNum
+      ? `<span class="topic-tag" style="background:#f3e5f5;color:#7b1fa2">🔢 Numbers</span>`
+      : `<span class="topic-tag ${isCalc ? 'tag-calc' : 'tag-nocalc'}">${isCalc ? '🔢 Calc' : '✏️ No calc'}</span>`;
+    btn.innerHTML = `
+      <div class="topic-icon">${t.icon}</div>
+      <div class="topic-name">${t.name}</div>
+      <div class="topic-desc">${t.desc}</div>
+      <div class="topic-footer">
+        <span class="topic-count">${t.questions.length} Qs</span>
+        ${tag}
+      </div>`;
+    btn.onclick = () => startTopic(t);
+    container.appendChild(btn);
+  });
+}
+
+// ─────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('btnHome').classList.toggle('show', id!=='homeScreen');
+  stopSpeech();
+}
+
+function goHome() {
+  if(ST.idx>0 && !confirm('Leave quiz? Your progress will be lost.')) return;
+  showScreen('homeScreen');
+}
+
+function goBack() {
+  stopSpeech();
+  if(ST.idx===0){goHome();return;}
+  ST.idx--;
+  if(ST.history.length && ST.history[ST.history.length-1].correct) ST.score--;
+  ST.history.pop();
+  ST.answered=false;
+  renderQ();
+}
+
+// ─────────────────────────────────────────
+// QUIZ
+// ─────────────────────────────────────────
+function startTopic(t) {
+  // Don't shuffle exam papers — keep original order
+  ST = { topicId:t.id, qs:[...t.questions], idx:0, score:0, answered:false, history:[] };
+  showScreen('quizScreen');
+  renderQ();
+}
+
+function renderQ() {
+  const t = TOPICS.find(x=>x.id===ST.topicId);
+  const q = ST.qs[ST.idx];
+  ST.answered = false;
+  stopSpeech();
+
+  document.getElementById('quizPill').textContent = `${t.icon} ${t.name}`;
+  document.getElementById('quizCounter').textContent = `Q ${ST.idx+1} / ${ST.qs.length}`;
+  document.getElementById('progFill').style.width = `${(ST.idx/ST.qs.length)*100}%`;
+  document.getElementById('qNum').textContent = `Question ${ST.idx+1}`;
+
+  // Context
+  const ctxEl = document.getElementById('qCtx');
+  if(q.ctx){ ctxEl.style.display='block'; ctxEl.textContent=q.ctx; }
+  else ctxEl.style.display='none';
+
+  // Listen context button
+  const btnCtx = document.getElementById('btnListenCtx');
+  btnCtx.style.display = q.ctx ? 'flex' : 'none';
+
+  // TTS availability note
+  const note = document.getElementById('ttsNote');
+  note.textContent = ttsAvailable ? '' : 'Text-to-speech not supported on this browser.';
+
+  // Question
+  document.getElementById('qText').textContent = q.q;
+
+  // Visual
+  const vis = document.getElementById('qVisual');
+  const visHTML = q.visual ? q.visual() : '';
+  if(visHTML){ vis.classList.remove('hidden'); vis.innerHTML=visHTML; }
+  else vis.classList.add('hidden');
+
+  // Options
+  const opts = document.getElementById('optionsDiv');
+  opts.innerHTML='';
+
+  if(q.type==='yesno'){
+    opts.className='yesno';
+    [{label:'Yes 👍', cls:'yes', val:'yes'},{label:'No 👎', cls:'no', val:'no'}].forEach(({label,cls,val})=>{
+      const btn=document.createElement('button');
+      btn.className=`yesno-btn ${cls}`;
+      btn.textContent=label;
+      btn.onclick=()=>handleYesNo(val,q);
+      opts.appendChild(btn);
+    });
+  } else {
+    opts.className='options two-col';
+    const letters=['A','B','C','D'];
+    q.opts.forEach((o,i)=>{
+      const btn=document.createElement('button');
+      btn.className='opt';
+      btn.innerHTML=`<span class="opt-letter">${letters[i]}</span>${o}`;
+      btn.onclick=()=>handleMC(i,q);
+      opts.appendChild(btn);
+    });
+  }
+
+  // Reset feedback and next button
+  const fb=document.getElementById('feedbackDiv');
+  fb.style.display='none'; fb.className='feedback';
+  document.getElementById('btnNext').style.display='none';
+}
+
+function handleMC(chosen, q) {
+  if(ST.answered) return;
+  ST.answered=true;
+  const correct=chosen===q.ans;
+  if(correct) ST.score++;
+  document.querySelectorAll('.opt').forEach((btn,i)=>{
+    btn.disabled=true;
+    if(i===q.ans) btn.classList.add('correct');
+    else if(i===chosen&&!correct) btn.classList.add('wrong');
+  });
+  showFeedback(correct, q.fb, q.speak ? q.fb : null);
+  ST.history.push({q:q.q, correct, ans:q.opts[q.ans], skill:q.skill});
+}
+
+function handleYesNo(chosen, q) {
+  if(ST.answered) return;
+  ST.answered=true;
+  const correct=chosen===q.ans;
+  if(correct) ST.score++;
+  document.querySelectorAll('.yesno-btn').forEach(b=>b.disabled=true);
+  const chosenBtn=chosen==='yes'?document.querySelectorAll('.yesno-btn')[0]:document.querySelectorAll('.yesno-btn')[1];
+  chosenBtn.classList.add(chosen==='yes'?'sel-yes':'sel-no');
+  const ansText=q.ans==='yes'?'Yes':'No';
+  showFeedback(correct, q.fb, null);
+  ST.history.push({q:q.q, correct, ans:ansText, skill:q.skill});
+}
+
+function showFeedback(correct, text) {
+  const fb=document.getElementById('feedbackDiv');
+  fb.style.display='block';
+  fb.className=`feedback ${correct?'ok':'fail'}`;
+  fb.textContent=correct?text:`❌ Not quite. ${text}`;
+  document.getElementById('btnNext').style.display='inline-block';
+}
+
+function nextQ() {
+  stopSpeech();
+  ST.idx++;
+  if(ST.idx>=ST.qs.length){ showResults(); return; }
+  renderQ();
+}
+
+// ─────────────────────────────────────────
+// RESULTS
+// ─────────────────────────────────────────
+function retryTopic() {
+  const t=TOPICS.find(x=>x.id===ST.topicId);
+  startTopic(t);
+}
+
+function toggleBD() {
+  const bd=document.getElementById('bdList');
+  const tog=document.getElementById('bdToggle');
+  const open=bd.style.display==='block';
+  bd.style.display=open?'none':'block';
+  tog.textContent=open?'▼ show':'▲ hide';
+}
+
+function showResults() {
+  showScreen('resultScreen');
+  const total=ST.qs.length;
+  const pct=Math.round((ST.score/total)*100);
+  let emoji,msg;
+  if(pct>=80){emoji='🌟';msg='Excellent! You are ready for the exam!';}
+  else if(pct>=60){emoji='😊';msg='Good effort! Keep practising the topics below.';}
+  else if(pct>=40){emoji='💪';msg='Keep going! Practise the areas shown below.';}
+  else{emoji='📚';msg='Keep practising — you will get there!';}
+
+  document.getElementById('resEmoji').textContent=emoji;
+  document.getElementById('resScore').textContent=`${ST.score}/${total}`;
+  document.getElementById('resPct').textContent=`${pct}%`;
+  document.getElementById('resMsg').textContent=msg;
+  const bar=document.getElementById('resBar');
+  bar.style.width=`${pct}%`;
+  bar.className=`res-bar-fill${pct<40?' low':pct<70?' mid':''}`;
+
+  // Skills breakdown
+  const skills={};
+  ST.history.forEach(h=>{
+    if(!skills[h.skill]) skills[h.skill]={total:0,wrong:0};
+    skills[h.skill].total++;
+    if(!h.correct) skills[h.skill].wrong++;
+  });
+  const weak=Object.entries(skills).filter(([,v])=>v.wrong>0).sort((a,b)=>b[1].wrong-a[1].wrong);
+  const strong=Object.entries(skills).filter(([,v])=>v.wrong===0);
+
+  const weakCard=document.getElementById('weakCard');
+  const weakList=document.getElementById('weakList');
+  weakList.innerHTML='';
+  if(weak.length){
+    weakCard.style.display='block';
+    weak.forEach(([skill,data])=>{
+      const pr=Math.round(((data.total-data.wrong)/data.total)*100);
+      const sev=pr<50?'red':'amber';
+      const d=document.createElement('div');
+      d.className=`weak-item ${sev}`;
+      d.innerHTML=`<div class="weak-label">${sev==='red'?'🔴':'🟡'} ${skill} — ${data.wrong} out of ${data.total} wrong</div>
+        <div style="background:#e0e0e0;border-radius:50px;height:6px;margin-top:6px;overflow:hidden">
+          <div style="width:${pr}%;height:100%;background:${sev==='red'?'#e53935':'#f59e0b'};border-radius:50px"></div></div>`;
+      weakList.appendChild(d);
+    });
+  } else weakCard.style.display='none';
+
+  const strongCard=document.getElementById('strongCard');
+  const strongList=document.getElementById('strongList');
+  strongList.innerHTML='';
+  if(strong.length){
+    strongCard.style.display='block';
+    strong.forEach(([skill,data])=>{
+      const d=document.createElement('div');
+      d.className='str-item';
+      d.innerHTML=`✅ <strong>${skill}</strong> — all ${data.total} correct!`;
+      strongList.appendChild(d);
+    });
+  } else strongCard.style.display='none';
+
+  const bd=document.getElementById('bdList');
+  bd.innerHTML='';
+  ST.history.forEach((h,i)=>{
+    const el=document.createElement('div');
+    el.className=`bd-item ${h.correct?'ok':'fail'}`;
+    const label=h.q.length>55?h.q.substring(0,55)+'…':h.q;
+    el.innerHTML=`<span style="flex-shrink:0">${h.correct?'✅':'❌'}</span>
+      <span><strong>Q${i+1}:</strong> ${label}${!h.correct?` <em style="opacity:.7">→ ${h.ans}</em>`:''}</span>`;
+    bd.appendChild(el);
+  });
+}
+
+// ─────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────
+buildHome();
+if(!ttsAvailable) {
+  const note=document.getElementById('ttsNote');
+  if(note) note.textContent='Text-to-speech not available on this browser.';
+}
+</script>
+</body>
+</html>
